@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'posts/index'
+
   scope '(:locale)', :locale => /en/ do
-    root 'sessions#new'
+    root 'posts#index'
 
     get    'login',  to: 'sessions#new'
     post   'login',  to: 'sessions#create'
@@ -17,6 +19,9 @@ Rails.application.routes.draw do
         post  'update_profile'
         post  'change_password'
       end
+    end
+
+    resources :posts do
     end
 
   end

@@ -2,74 +2,74 @@
   %div.page-sidebar.navbar-collapse.collapse
     %ul.page-sidebar-menu.page-header-fixed.page-sidebar-menu-hover-submenu{"data-auto-scroll" => "true", "data-keep-expanded" => "false", "data-slide-speed" => "200"}
       %li.nav-item.start.active.open
-        = link_to pricing_histories_path, class: 'nav-link' do 
-          %i.icon-social-dribbble
-          %span.title Pricing History
-          %span.selected
-          %span.arrow.open
-      %li.nav-item
-        = link_to pricing_histories_path, class: 'nav-link' do 
-          %i.icon-bar-chart
-          %span.title Pricing Result
-          %span.selected
-          %span.arrow.open
-      %li.nav-item
-        %a.nav-link.nav-toggle{:href => "#"}
-          %i.icon-layers
-          %span.title Management
-          %span.arrow
-        %ul.sub-menu
-          %li.nav-item
-            = link_to guideline_rates_path, class: 'nav-link' do 
-              %span.title Guideline Rates
-          %li.nav-item
-            = link_to arbitraries_path, class: 'nav-link' do 
-              %span.title Arbitraries
-          %li.nav-item
-            = link_to location_groups_path, class: 'nav-link' do
-              %span.title Location Groups
-          %li.nav-item
-            = link_to locations_path, class: 'nav-link' do
-              %span.title Locations
-          %li.nav-item
-            = link_to minimum_margins_path, class: 'nav-link' do 
-              %span.title Minimum Margins
-          %li.nav-item
-            = link_to utilization_factors_path, class: 'nav-link' do 
-              %span.title Utilization/Volume Factors
-          %li.nav-item
-            = link_to variable_costs_path, class: 'nav-link' do 
-              %span.title Variable Costs
-          %li.nav-item
-            = link_to opus_utilizations_path, class: 'nav-link' do 
-              %span.title OPUS Utilizations
-          %li.nav-item
-            = link_to sales_weeks_path, class: 'nav-link' do 
-              %span.title Sales Weeks
-          %li.nav-item
-            = link_to service_lanes_path, class: 'nav-link' do
-              %span.title Service Lanes
-          %li.nav-item
-            = link_to services_path, class: 'nav-link' do
-              %span.title Services
-          %li.nav-item
-            = link_to surcharges_path, class: 'nav-link' do 
-              %span.title Surcharges
-          %li.nav-item
-            = link_to trades_path, class: 'nav-link' do
-              %span.title Trades and Trade Groups
-      %li.nav-item
-        = link_to pricing_histories_path, class: 'nav-link nav-toggle' do 
-          %i.icon-settings
-          %span.title Settings
-          %span.arrow
-        %ul.sub-menu
-          %li.nav-item
-            = link_to edit_user_path(current_user), class: 'nav-link' do 
-              %span.title My Profile
-          %li.nav-item
-            = link_to users_path, class: 'nav-link' do 
-              %span.title Users
-          %li.nav-item
-            = link_to activities_path, class: 'nav-link' do 
-              %span.title Activities
+      -#  = link_to pricing_histories_path, class: 'nav-link' do
+      -#    %i.icon-social-dribbble
+      -#    %span.title Pricing History
+      -#    %span.selected
+      -#    %span.arrow.open
+      -#%li.nav-item
+      -#  = link_to pricing_histories_path, class: 'nav-link' do
+      -#    %i.icon-bar-chart
+      -#    %span.title Pricing Result
+      -#    %span.selected
+      -#    %span.arrow.open
+      -#%li.nav-item
+      -#  %a.nav-link.nav-toggle{:href => "#"}
+      -#    %i.icon-layers
+      -#    %span.title Management
+      -#    %span.arrow
+      -#  %ul.sub-menu
+      -#    %li.nav-item
+      -#      = link_to guideline_rates_path, class: 'nav-link' do
+      -#        %span.title Guideline Rates
+      -#    %li.nav-item
+      -#      = link_to arbitraries_path, class: 'nav-link' do
+      -#        %span.title Arbitraries
+      -#    %li.nav-item
+      -#      = link_to location_groups_path, class: 'nav-link' do
+      -#        %span.title Location Groups
+      -#    %li.nav-item
+      -#      = link_to locations_path, class: 'nav-link' do
+      -#        %span.title Locations
+      -#    %li.nav-item
+      -#      = link_to minimum_margins_path, class: 'nav-link' do
+      -#        %span.title Minimum Margins
+      -#    %li.nav-item
+      -#      = link_to utilization_factors_path, class: 'nav-link' do
+      -#        %span.title Utilization/Volume Factors
+      -#    %li.nav-item
+      -#      = link_to variable_costs_path, class: 'nav-link' do
+      -#        %span.title Variable Costs
+      -#    %li.nav-item
+      -#      = link_to opus_utilizations_path, class: 'nav-link' do
+      -#        %span.title OPUS Utilizations
+      -#    %li.nav-item
+      -#      = link_to sales_weeks_path, class: 'nav-link' do
+      -#        %span.title Sales Weeks
+      -#    %li.nav-item
+      -#      = link_to service_lanes_path, class: 'nav-link' do
+      -#        %span.title Service Lanes
+      -#    %li.nav-item
+      -#      = link_to services_path, class: 'nav-link' do
+      -#        %span.title Services
+      -#    %li.nav-item
+      -#      = link_to surcharges_path, class: 'nav-link' do
+      -#        %span.title Surcharges
+      -#    %li.nav-item
+      -#      = link_to trades_path, class: 'nav-link' do
+      -#        %span.title Trades and Trade Groups
+      -#%li.nav-item
+      -#  = link_to pricing_histories_path, class: 'nav-link nav-toggle' do
+      -#    %i.icon-settings
+      -#    %span.title Settings
+      -#    %span.arrow
+      -#  %ul.sub-menu
+      -#    %li.nav-item
+      -#      = link_to edit_user_path(current_user), class: 'nav-link' do
+      -#        %span.title My Profile
+      -#    %li.nav-item
+      -#      = link_to users_path, class: 'nav-link' do
+      -#        %span.title Users
+      -#    %li.nav-item
+      -#      = link_to activities_path, class: 'nav-link' do
+      -#        %span.title Activities

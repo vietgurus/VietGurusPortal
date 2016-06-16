@@ -1,0 +1,26 @@
+=form_for @guideline_rate, html: {class: 'form-horizontal form-bordered form-label-stripped'} do |f|
+  .form-body
+    .form-group
+      %label.control-label.col-md-3 Origin Location
+      .col-md-9
+        = f.select :origin_location_id, Location.order(name: :asc).pluck(:name, :id), {}, {class: 'form-control select2_category'}
+    .form-group
+      %label.control-label.col-md-3 Destination Location
+      .col-md-9
+        = f.select :destination_location_id, Location.order(name: :asc).pluck(:name, :id), {}, {class: 'form-control select2_category'}
+    .form-group
+      %label.control-label.col-md-3 Type Size
+      .col-md-9
+        = f.select :type_size_id, TypeSize.order(name: :asc).pluck(:name, :id), {}, {class: 'form-control select2_category'}
+    .form-group.last
+      %label.control-label.col-md-3 Rate
+      .col-md-9
+        = f.text_field :rate, class: 'form-control', placeholder: 'Rate', type: 'number'
+        %span.help-block Rate for type size
+  .form-actions
+    .row
+      .col-md-offset-3.col-md-9
+        %button.btn.green{:type => 'submit'}
+          %i.fa.fa-check
+          Submit
+        = link_to 'Cancel', guideline_rates_path, class: 'btn default'
