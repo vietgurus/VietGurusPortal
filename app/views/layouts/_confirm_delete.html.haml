@@ -1,0 +1,14 @@
+#confirm-delete.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'confirmDeleteLabel', :role => 'dialog', :tabindex => '-1'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
+        %h4#confirmDeleteLabel.modal-title Confirm Delete
+      .modal-body
+        %p Are you sure, Do you want to delete this record?
+      .modal-footer
+        %form#form-delete{method: :post}
+          = hidden_field_tag 'authenticity_token', form_authenticity_token
+          = hidden_field_tag '_method', 'delete'
+          %button.btn.btn-default{'data-dismiss' => 'modal', :type => 'button'} Cancel
+          %button.btn.btn-danger.btn-ok{type: 'submit'} Delete

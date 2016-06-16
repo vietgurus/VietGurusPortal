@@ -1,0 +1,5 @@
+%div
+  - flash.each do |key, value|
+    %div{:class => "#{flash_class(key)} fade in", :style => "text-align:center;"}
+      %a.close{"data-dismiss" => "alert", :href => "#", color: "#000000;"} ×
+      = value

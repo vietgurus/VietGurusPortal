@@ -1,0 +1,39 @@
+=form_tag({controller: "sessions", action: "create"}, method: "post", class: "login-form") do
+  %h3.form-title Login to your account
+  - if flash[:error].present?
+    .alert.alert-danger.display-show
+      %button.close{"data-close" => "alert"}
+      %span
+        = flash[:error]
+  - if flash[:notice].present?
+    .alert.alert-success.display-show
+      %button.close{"data-close" => "alert"}
+      %span
+        = flash[:notice]
+  .form-group
+    %label.control-label.visible-ie8.visible-ie9 Username
+    .input-icon
+      %i.fa.fa-envelope
+      = text_field_tag :email, nil, class: 'form-control placeholder-no-fix', autocomplete: 'off', name: 'email', placeholder: 'Email', type: 'text'
+  .form-group
+    %label.control-label.visible-ie8.visible-ie9 Password
+    .input-icon
+      %i.fa.fa-lock
+      = text_field_tag :password, params[:password], class: 'form-control placeholder-no-fix', autocomplete: 'off', name: 'password', placeholder: 'Password', type: 'password'
+  .form-actions
+    %label.rememberme.mt-checkbox.mt-checkbox-outline
+      %input{:name => "remember", :type => "checkbox", :value => "1"}/
+      Remember me
+      %span
+    %button.btn.green.pull-right{:type => "submit"} Login
+  .login-options
+  .forget-password
+    %h4 Forgot your password ?
+    %p
+      no worries, click
+      %a#forget-password{:href => "javascript:;"} here
+      to reset your password.
+  .create-account
+    %p
+      Don't have an account yet ?&nbsp;
+      %a#register-btn{:href => "javascript:;"} Create an account

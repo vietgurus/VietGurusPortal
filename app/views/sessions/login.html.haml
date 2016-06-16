@@ -1,0 +1,20 @@
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Auto Pricing
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    = stylesheet_link_tag 'session', media: 'all', data: {'turbolinks-track' => true}
+    = javascript_include_tag 'session', data: {'turbolinks-track' => true}
+  %body.login
+    .logo
+      %a{:href => "index.html"}
+        %img{:alt => "", :src => "/images/logo-big.png"}/
+    .content
+      = render 'sessions/login_form'
+      = render 'sessions/reset_password_form'
+      = render 'sessions/new_password_form'
+      = render 'users/sign_up_form'
+    .copyright 2016 &copy; Symphony Creative Solutions - Auto Pricing System.

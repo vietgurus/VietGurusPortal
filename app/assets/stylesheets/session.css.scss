@@ -10,6 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
+ *= require bootstrap
+ *= require font-awesome
+ *= require simple-line-icons
+ *= require bootstrap-switch
+ *= require select2
+ *= require select2-bootstrap
+ *= require metronic_session_components
+ *= require metronic_session_plugins
+ *= require metronic_session
  */
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all);

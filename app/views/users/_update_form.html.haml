@@ -1,0 +1,10 @@
+=form_for @user, url: {controller: 'users', action: 'update'} do |f|
+  .form-group
+    %label.control-label Full Name
+    = f.text_field :name, class: 'form-control', placeholder: 'Full Name', type: 'text'
+  .form-group
+    %label.control-label Email
+    = f.text_field :email, class: 'form-control', placeholder: 'Email', type: 'text'
+  .margiv-top-10
+    %button.btn.green{:type => "submit"} Save Changes
+    %a.btn.default{:href => "javascript:;"} Cancel

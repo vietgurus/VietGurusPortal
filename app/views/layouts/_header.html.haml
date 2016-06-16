@@ -1,0 +1,27 @@
+%div.page-header.navbar.navbar-fixed-top
+  %div.page-header-inner
+    %div.page-logo
+      = link_to root_path do
+        %img.logo-default{:alt => "logo", :src => "/images/logo-default.png"}
+      %div.menu-toggler.sidebar-toggler
+    %a.menu-toggler.responsive-toggler{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :href => "javascript:;"}
+    %div.page-top
+      %div.top-menu
+        %ul.nav.navbar-nav.pull-right
+          %li.dropdown.dropdown-user
+            %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
+              %span.username= current_user.email
+              %i.fa.fa-angle-down
+            %ul.dropdown-menu.dropdown-menu-default
+              %li
+                %a{:href => "page_user_profile_1.html"}
+                  %i.icon-user
+                  My Profile
+              %li
+                %a{:href => "app_calendar.html"}
+                  %i.icon-calendar
+                  Password
+              %li
+                %a{:href => "page_user_login_1.html"}
+                  %i.icon-key
+                  Log Out
