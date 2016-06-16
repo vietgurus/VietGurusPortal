@@ -17,19 +17,11 @@ ActiveRecord::Schema.define(version: 20160601110434) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.integer  "role"
-    t.string   "password_digest"
-    t.string   "auth_code"
-    t.integer  "sales_manager_id"
-    t.integer  "country_manager_id"
-    t.string   "slug"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.string "name"
+    t.string "password"
+    t.string "password_digest"
+    t.string "email"
+    t.string "avatar"
   end
-
-  add_index "users", ["country_manager_id"], name: "index_users_on_country_manager_id", using: :btree
-  add_index "users", ["sales_manager_id"], name: "index_users_on_sales_manager_id", using: :btree
 
 end
