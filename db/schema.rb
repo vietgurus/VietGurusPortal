@@ -11,25 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601110434) do
+ActiveRecord::Schema.define(version: 20160616040418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.integer  "role"
-    t.string   "password_digest"
-    t.string   "auth_code"
-    t.integer  "sales_manager_id"
-    t.integer  "country_manager_id"
-    t.string   "slug"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+  create_table "posts", force: :cascade do |t|
+    t.string  "cat_name"
+    t.string  "title"
+    t.string  "content"
+    t.string  "image_url"
+    t.string  "up"
+    t.string  "down"
+    t.string  "creator_id"
+    t.string  "result"
+    t.integer "type"
   end
 
-  add_index "users", ["country_manager_id"], name: "index_users_on_country_manager_id", using: :btree
-  add_index "users", ["sales_manager_id"], name: "index_users_on_sales_manager_id", using: :btree
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.string "password_digest"
+    t.string "email"
+    t.string "avatar"
+  end
 
 end

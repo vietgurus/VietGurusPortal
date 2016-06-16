@@ -1,22 +1,4 @@
 class User < ActiveRecord::Base
-  extend FriendlyId
-
-  friendly_id :slug_candidates, use: :history
-  has_secure_password
-  acts_as_paranoid
-
-  has_many :activities
-  has_many :pricing_histories
-
-  validates :email,
-            uniqueness: true
-  validates :email,
-            email: true
-  validates :password_confirmation,
-            presence: true,
-            if: :is_changing_password?
-  validate :secure_password,
-           if: :is_changing_password?
 
   def init
     self.auth_token ||= SecureRandom.hex(16)
@@ -48,9 +30,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def slug_candidates
-    PinYin.permlink(self.name)
-  end
 
   def async_send_reset_password_email
     self.delay.send_reset_password_email
