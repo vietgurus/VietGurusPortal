@@ -54,8 +54,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'haml-rails'
 gem 'kaminari'
-gem 'delayed_job_active_record'
 gem 'bootstrap-sass'
+gem 'better_errors', '2.1.1'
 
 
 
