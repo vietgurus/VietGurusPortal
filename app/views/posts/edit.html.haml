@@ -1,0 +1,28 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      Variable Cost
+    %div.page-bar
+      %ul.page-breadcrumb
+        %li
+          %i.icon-home
+          %a{:href => "index.html"} Management
+          %i.fa.fa-angle-right
+        %li
+          %span Variable Cost
+    %div.row
+      .col-md-12
+        .portlet.light.form-fit
+          .portlet-title
+            .caption
+              %i.icon-user.font-blue-hoki
+              %span.caption-subject.font-blue-hoki.bold.uppercase Update variable cost
+            .actions
+              %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+                %i.icon-cloud-upload
+              %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+                %i.icon-wrench
+              %a.btn.btn-circle.btn-icon-only.btn-default{:href => "javascript:;"}
+                %i.icon-trash
+          .portlet-body.form
+            = render 'form'

@@ -1,0 +1,38 @@
+= form_tag({controller: 'posts', action: 'index'}, method: 'get', class: 'form-horizontal form-bordered form-label-stripped') do
+  .form-body
+    %div.form-group
+      %label.control-label.col-md-3
+        Category:
+      .col-md-9
+        %select.form-control.select2.input-large
+          %option Party
+          %option Cinema
+          %option Team Building
+          %option Massage
+          %option Other
+    %div.form-group
+      %label.control-label.col-md-3
+        Title:
+      .col-md-9
+        = text_field_tag :title, params[:title], placeholder: '...', class: 'form-control', type: 'text'
+    %div.form-group
+      %label.control-label.col-md-3
+        Content:
+      .col-md-9
+        = text_area_tag :content, params[:content], placeholder: '...', class: 'form-control', type: 'textarea'
+    %div.form-group
+      %label.control-label.col-md-3
+        Photo:
+      .col-md-9
+        %input{:type => 'file'}
+    %div.form-group
+      %label.control-label.col-md-3
+        Randomize time:
+      .col-md-9
+        = text_field_tag :randomize_time, params[:randomize_time], placeholder: '1', class: 'form-control', type: 'number'
+  .form-actions
+    .row
+      .col-md-offset-3.col-md-9
+        %button.btn.green{:type => 'submit'}
+          Create
+        = link_to 'Cancel', posts_path, class: 'btn default'

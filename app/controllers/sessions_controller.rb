@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     end
     sessionate(@user)
     #TODO replace by dashboard path
-    redirect_to root_path
+	redirect_to root_path
   end
 
   def forgot_password_create
