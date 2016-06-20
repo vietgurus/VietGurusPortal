@@ -27,13 +27,11 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    @user.auth_token = SecureRandom.hex(64)
     if @user.save
-      @user.async_send_confirmation_email
-      flash.now[:notice] = I18n.t('users.sign_up_success')
+      flash.now[:notice] = 'Welcome onboard!'
       render 'sessions/login', layout: nil
     else
-      flash.now[:error] = I18n.t('users.sign_up_failed')
+      flash.now[:error] = 'Something bad happened! Are you a guru?'
       render 'sessions/login', layout: nil
     end
   end
@@ -41,7 +39,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      flash.now[:notice] = I18n.t('users.update_success')
+      flash.now[:notice] = 'You\'re definitely a guru!'
       flash.keep
       redirect_to edit_user_path(@user)
     else
@@ -52,14 +50,14 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    flash.now[:notice] = I18n.t('users.destroy_success')
+    flash.now[:notice] = 'You broke our heart!'
     redirect_to users_url
   end
 
   # POST /update_profile
   def update_profile
     if @current_user.update(profile_params)
-      flash.now[:notice] = I18n.t('users.update_profile_success')
+      flash.now[:notice] = 'You\'re definitely a guru!'
       flash.keep
       redirect_to edit_user_path(@user)
     else
@@ -73,35 +71,25 @@ class UsersController < ApplicationController
     if current_user.authenticate params[:current_password]
 
       if !params[:password].present?
-        flash.now[:error] = I18n.t('users.password_empty')
+        flash.now[:error] = 'Gurus don\'t leave password empty'
       elsif params[:password] != params[:password_confirmation]
-        flash.now[:error] = I18n.t('users.password_confirmation_notmatch')
+        flash.now[:error] = 'Gurus don\'t misstype password'
       elsif @user.update(change_password_params)
-        flash.now[:notice] = I18n.t('users.change_password_success')
+        flash.now[:notice] = 'That\'s why we call you guru! Easy job right?'
       else
-        flash.now[:error] = I18n.t('users.change_password_failed')
+        flash.now[:error] = 'Try again, guru'
       end
     else
-      flash.now[:error] = I18n.t('users.current_password_notmatch')
+      flash.now[:error] = 'Sometimes, gurus forget their password.'
     end
     flash.keep
     redirect_to edit_user_path(@user)
   end
 
-  def confirm_email
-    @user = User.where(auth_token: params[:auth_token]).first
-    if @user.present?
-      @user.email_confirmed = true
-      @user.save!
-    end
-    flash.now[:notice] = 'Congratulation, Your account has been created successfully'
-    render 'sessions/login', layout: nil
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def init_user
-      @user = User.friendly.find(params[:id])
+      @user = User.find_by_id(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
