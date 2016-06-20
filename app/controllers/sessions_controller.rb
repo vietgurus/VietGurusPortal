@@ -10,22 +10,18 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if !@user.present?
       @user = User.new()
-      flash.now[:error] = 'Wrong email or password!'
+      flash.now[:error] = 'Are you a real guru?'
       render :login, layout: nil
       return
     end
-    if !@user.email_confirmed
-      flash.now[:error] = 'Please check your email to confirm registration!'
-      render :login, layout: nil
-      return
-    end
-    if !@user.authenticate(params[:password])
-      flash.now[:error] = 'Wrong email or password!'
+    if !@user.password == params[:password]
+      flash.now[:error] = 'Are you a real guru?'
       render :login, layout: nil
       return
     end
     sessionate(@user)
-    redirect_to pricing_histories_path
+    #TODO replace by dashboard path
+	redirect_to root_path
   end
 
   def forgot_password_create
@@ -67,11 +63,11 @@ class SessionsController < ApplicationController
   end
 
   private
-    def reset_password_params
-      params.permit(
-          :password,
-          :password_confirmation
-      )
-    end
+  def reset_password_params
+    params.permit(
+        :password,
+        :password_confirmation
+    )
+  end
 
 end

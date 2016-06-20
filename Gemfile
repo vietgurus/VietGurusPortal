@@ -45,17 +45,12 @@ group :development do
   gem 'spring'
 end
 
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'haml-rails'
-gem 'kaminari'
-gem 'delayed_job_active_record'
 gem 'bootstrap-sass'
+gem 'better_errors', '2.1.1'
+gem 'responders', '~> 2.0'
 
 
 

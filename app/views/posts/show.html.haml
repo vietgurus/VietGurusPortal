@@ -1,6 +1,28 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_test_path(@test)
-\|
-= link_to 'Back', tests_path
+%div.page-content-wrapper
+  %div.page-content
+    %div.row
+      %div.col-md-12
+        %div.portlet.light
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                = @post.cat_name
+          %div.row
+            %div.col-sm-6{:style => 'height: 700px'}
+              %img.img-rounded.img-responsive{:src => @post.image_url}
+            %div.col-sm-6
+              .panel.panel-info
+                .panel-heading
+                  %h3{style: 'word-wrap: break-word;'}
+                    =@post.title
+                    &nbsp;&nbsp;
+                  =link_to down_post_path(@post) ,remote: true, class: 'btn btn-outline btn-circle btn-lg red' do
+                    %i.glyphicon.glyphicon-thumbs-down
+                    =@post.down.split(',').count()
+                  =link_to up_post_path(@post), remote: true, class: 'btn btn-outline btn-circle btn-lg blue' do
+                    %i.glyphicon.glyphicon-thumbs-up
+                    =@post.up.split(',').count()
+                .panel-body
+                  =@post.content
+          %div.portlet-body.flip-scroll

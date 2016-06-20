@@ -1,16 +1,5 @@
 %div.page-content-wrapper
   %div.page-content
-    %h3.page-title
-      Post
-      %small Please vote for new post
-    %div.page-bar
-      %ul.page-breadcrumb
-        %li
-          %i.icon-home
-          %a{:href => "index.html"} Management
-          %i.fa.fa-angle-right
-        %li
-          %span Guideline Rate
     %div.row
       %div.col-md-12
         %div.portlet.light
@@ -18,43 +7,13 @@
             %div.caption
               %i.icon-social-dribbble.font-green
               %span.caption-subject.font-green.bold.uppercase 
-                Guideline Rates
-            %div.actions
-              .btn-group
-                %button.btn.btn-warning.btn-circle.dropdown-toggle{'data-toggle' => 'dropdown', :type => 'button'}
-                  %span Excel
-                  %i.fa.fa-angle-down
-                %ul.dropdown-menu{:role => 'menu'}
-              = link_to 'New', new_post_path, class: 'btn btn-circle btn-primary'
+                What for Friday's movie ?
           %div.row
-            %div.col-sm-12
-              = form_tag({controller: 'posts', action: 'index'}, method: 'get', class: 'form-inline margin-bottom-10') do
-                %div.form-group
-                  = text_field_tag :keyword, params[:keyword], placeholder: 'Location Name', class: 'form-control', type: 'text'
-                %button.btn.btn-info{:type => 'submit'} Search
-          %div.portlet-body.flip-scroll
-            %table.table.table-bordered.table-condensed.flip-content
-              %thead.flip-content
-                %tr
-                  %th #
-                  %th Origin Location
-                  %th Destination Location
-                  %th Type Size
-                  %th Rate
-                  %th{style: 'min-height: 40.5px'}
-              %tbody
-                - index = 0
-                - @posts.each do |post|
-                  %tr
-                    %td=index+=1
-                    %td=post.origin_location.name
-                    %td=post.destination_location.name
-                    %td=post.type_size.name
-                    %td=post.rate
-                    %td.numeric
-                      = link_to edit_post_path(post), class: 'btn btn-outline btn-circle btn-sm purple' do
-                        %i.fa.fa-edit
-                        Edit
-                      %button.btn.btn-outline.btn-circle.btn-sm.dark.black{type: 'button', data: {toggle: 'modal', target: '#confirm-delete', href: post_path(post)}}
-                        %i.fa.fa-trash-o
-                        Delete
+            %div.col-sm-6{:style => 'height: 700px'}
+              %img.img-rounded.img-responsive{:src => 'images/brothers-grimsby-movie-poster.jpg'}
+            %div.col-sm-6
+              .panel.panel-primary
+                .panel-heading
+                  %h3 Jackass - The Idiot
+                .panel-body
+                  He's the most stupid idiot ugliest in the universe
