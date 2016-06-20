@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'posts/show'
 
   scope '(:locale)', :locale => /en/ do
@@ -28,5 +29,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
 
 end

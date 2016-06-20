@@ -14,8 +14,8 @@
           %span.arrow
         %ul.sub-menu
           %li.nav-item
-            = link_to posts_path, class: 'nav-link' do
+            = link_to posts_path(type: 'vote'), class: 'nav-link' do
               %span.title Vote
           %li.nav-item
-            = link_to posts_path, class: 'nav-link' do
+            = link_to posts_path(type: 'randomize'), class: 'nav-link' do
               %span.title Randomize

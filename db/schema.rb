@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160616040418) do
     t.string  "down"
     t.string  "creator_id"
     t.string  "result"
+    t.integer "number"
     t.integer "type"
   end
 
