@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'posts/index'
+
+  get 'posts/index'
+
+  get 'posts/index'
+
   scope '(:locale)', :locale => /en/ do
     root 'posts#index'
 
@@ -8,6 +14,8 @@ Rails.application.routes.draw do
   post 'forgot_password_create', to: 'sessions#forgot_password_create'
   post 'new_password_create', to: 'sessions#new_password_create'
   get 'confirm_email', to: 'users#confirm_email'
+
+
 
     resources :users do
       collection do
@@ -20,6 +28,7 @@ Rails.application.routes.draw do
     end
 
     resources :posts
+    post 'posts/update_result', to: 'posts#update_result'
 
   end
 

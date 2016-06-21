@@ -90,3 +90,9 @@ $(document).on('ready page:load', () ->
 $(document).ready ->
   $('#confirm-delete').on 'show.bs.modal', (e) ->
     $(this).find('#form-delete').attr 'action', $(e.relatedTarget).data('href')
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
