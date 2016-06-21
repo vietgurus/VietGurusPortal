@@ -1,0 +1,51 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      Update Post
+    %div.row
+      %div.col-md-12
+        %div.portlet.light
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                Update Post
+          .portlet-body.form
+            = form_for @post, html: {class: 'form-horizontal form-bordered form-label-stripped'} do |f|
+              .form-body
+                %div.form-group
+                  %label.control-label.col-md-3
+                    Category:
+                  .col-md-9
+                    = f.select :cat_name, ['Party', 'Cinema', 'Team Building', 'Massage', 'Other'], {}, {class: 'form-control select2_category'}
+                %div.form-group
+                  %label.control-label.col-md-3
+                    Title:
+                  .col-md-9
+                    = f.text_field :title, placeholder: 'What...', class: 'form-control'
+                %div.form-group
+                  %label.control-label.col-md-3
+                    Content:
+                  .col-md-9
+                    = f.text_area :content, placeholder: 'When...', class: 'form-control'
+                %div.form-group
+                  %label.control-label.col-md-3
+                    Photo:
+                  .col-md-9
+                    = f.file_field :image_url, multipart: true
+                - if @post.type == Post::TYPE_RANDOM
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      Randomize time:
+                    .col-md-9
+                      = f.text_field :number, placeholder: 'How many time?', class: 'form-control', type: 'number'
+                = f.hidden_field :type
+              .form-actions
+                .row
+                  .col-md-offset-3.col-md-9
+                    %button.btn.green{:type => 'submit'}
+                      Submit
+                    - if @post.type == Post::TYPE_RANDOM
+                      = link_to 'Cancel', posts_path(type: 'randomize'), class: 'btn default'
+                    - else
+                      = link_to 'Cancel', posts_path(type: 'vote'), class: 'btn default'

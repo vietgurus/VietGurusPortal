@@ -8,22 +8,20 @@ class PostsController < ApplicationController
   end
 
   def new_vote
-    @post = Post.new
-
+    @post = Post.new(:type => Post::TYPE_VOTE)
   end
 
   def new_randomize
-    @post = Post.new
-
+    @post = Post.new(:type => Post::TYPE_RANDOM)
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
       if @post.type == Post::TYPE_RANDOM
-        redirect_to posts_randomizes_path, notice: init_message(:success, 'Create randomize post successfully')
+        redirect_to posts_path(type: 'randomize'), notice: init_message(:success, 'Create randomize post successfully')
       else
-        redirect_to posts_votes_path, notice: init_message(:success, 'Create vote post successfully')
+        redirect_to posts_path(type: 'vote'), notice: init_message(:success, 'Create vote post successfully')
       end
     end
   end
@@ -34,9 +32,9 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       if @post.type == Post::TYPE_RANDOM
-        redirect_to posts_randomizes_path, notice: init_message(:success, 'Update randomize post successfully')
+        redirect_to posts_path(type: 'randomize'), notice: init_message(:success, 'Update randomize post successfully')
       else
-        redirect_to posts_votes_path, notice: init_message(:success, 'Update vote post successfully')
+        redirect_to posts_path(type: 'vote'), notice: init_message(:success, 'Update vote post successfully')
       end
     end
   end
@@ -47,11 +45,7 @@ class PostsController < ApplicationController
 
   def show
     post = Post.find(params[:id])
-    if post.type == Post::TYPE_RANDOM
-      render posts_randomizes_path(post)
-    else
-      render posts_votes_path(post)
-    end
+    render posts_path(post)
   end
 
   def show_vote(post)
