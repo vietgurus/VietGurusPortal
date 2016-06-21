@@ -6,6 +6,14 @@ class PostsController < ApplicationController
     @users_count = 10
   end
 
+  def new_vote
+
+  end
+
+  def new_randomize
+
+  end
+
   def show
     post = Post.find(params[:id])
     if post.type == Post::TYPE_RANDOM

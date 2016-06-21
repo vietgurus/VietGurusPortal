@@ -10,11 +10,10 @@
     = csrf_meta_tag
     = stylesheet_link_tag 'application', media: 'all', data: {'turbolinks-track' => true}
     = javascript_include_tag 'application', data: {'turbolinks-track' => true}
-
   %body.page-header-fixed.page-sidebar-closed-hide-logo.page-container-bg-solid
-    -#= render 'layouts/header'
+    = render 'layouts/header'
     %div.page-container
-      -#= render 'layouts/sidebar'
+      = render 'layouts/sidebar'
       = yield
     = render 'layouts/footer'
     = render 'layouts/confirm_delete'
