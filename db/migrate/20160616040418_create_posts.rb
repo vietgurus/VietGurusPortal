@@ -5,10 +5,11 @@ class CreatePosts < ActiveRecord::Migration
       t.string  :title
       t.string  :content
       t.string  :image_url
-      t.string  :up
-      t.string  :down
+      t.string  :up, :default => 0
+      t.string  :down, :default => 0
       t.string  :creator_id
       t.string  :result
+      t.integer :number
       t.integer :type
     end
   end
