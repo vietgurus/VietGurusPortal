@@ -14,7 +14,7 @@
       %label.control-label.col-md-3
         Content:
       .col-md-9
-        = f.text_area :content, placeholder: 'When...', class: 'form-control'
+        = f.text_area :content, placeholder: 'When...', rows: 18, class: 'form-control'
     %div.form-group
       %label.control-label.col-md-3
         Photo:
@@ -24,7 +24,7 @@
       %label.control-label.col-md-3
         Randomize time:
       .col-md-9
-        = f.text_field :number, placeholder: 'How many time?', class: 'form-control', type: 'number'
+        = f.select :number, [1,2,3,4,5], {}, {class: 'form-control select2_category'}
 
     = f.hidden_field :type
   .form-actions

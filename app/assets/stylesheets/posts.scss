@@ -3,14 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 div.post {
-  width: 350px;
+  width: 325px;
   height: 250px;
   border: 1px solid black;
   border-radius: 10px;
   padding: 0px;
   box-sizing: border-box;
-  float: left;
-  margin: 10px 15px;
+  display: inline-table;
+  margin: 10px 3px;
   background-size: cover  !important;
   background-position: 50% 50% !important;
 }
@@ -39,14 +39,22 @@ div.post {
 
 .post .text {
   height: 50px;
-  padding: 1px 3px 3px 3px;
+  padding: 1px 5px 3px 5px;
   color: white;
   background-color: black;
+  cursor: pointer;
 }
 
 .post .title {
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight:bold;
+}
+
+.post .content {
+  font-size: 0.7em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height:26px;
 }
 
 .post .footer div {

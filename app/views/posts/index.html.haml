@@ -1,46 +1,62 @@
-%h1 Dashboard
-- @posts.each do |post|
-  %div{class: "mt-element-ribbon bg-grey-steel post type_#{post.type}", style: "background-image: url(../images/#{post.image_url}) !important", 'data-id': "#{post.id}"}
-    %div.header
-      %div{class: "category ribbon ribbon-color-default uppercase"}
-        = post.cat_name
-      %div.control
-        %a
-          Edit
-        |
-        %a
-          Delete
-    %div.space
-    %div.text
-      %div.title
-        = post.title
-      %div.content
-        = post.content
-    %div.footer
-      -if post.type == 1
-        %div.up
-          %div.number
-            = post.up
-          Up
-        %div.down
-          %div.number
-            = post.down
-          Down
-        %div.unknown
-          %div.number
-            = @users_count
-          Unknown
-      - else
-        %div.user
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      We are Gurus. We play hard, code harder
+    %div.row
+      %div.col-md-12
+        %div.portlet.light
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                = @title
+          .portlet-body.form
+            - @posts.each do |post|
+              %div{class: "mt-element-ribbon bg-grey-steel post type_#{post.type}",
+                style: "background-image: url(/images/uploads/#{post.image_url}) !important",
+                'data-url': "#{post_path(post.id)}"}
+                %div.header
+                  %div{class: "category ribbon ribbon-color-default uppercase"}
+                    = post.cat_name
+                  %div.control
+                    - if post.authorized? current_user.id
+                      %a{href: edit_post_path(post)}
+                        Edit
+                      |
+                      %a{data: {toggle: 'modal', target: '#confirm-delete', href: post_path(post)}}
+                        Delete
+                %div.space
+                %div.text
+                  %div.title
+                    = post.title
+                  %div.content
+                    = post.content
+                %div.footer
+                  -if post.type == 1
+                    %div.up
+                      %div.number
+                        = count_up = post.vote_result_array[:up].length
+                      Up
+                    %div.down
+                      %div.number
+                        = count_down = post.vote_result_array[:down].length
+                      Down
+                    %div.unknown
+                      %div.number
+                        = @users.count - (count_up + count_down)
+                      Unknown
+                  - else
+                    - post.randomise_result_array.each do |user_id|
+                      %div.user{style: "background: url(/images/avatars/" + user_id + ".jpg)"}
 
 :javascript
   $(document).ready(function() {
-    $('.post').click(function() {
-      window.location = 'posts/' + $(this).data('id')
+    $('.post .text').click(function() {
+      window.location = $(this).parents('.post').data('url')
     })
 
     $('.post a').click(function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
     })
   })

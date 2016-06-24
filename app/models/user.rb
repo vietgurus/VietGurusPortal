@@ -1,13 +1,9 @@
 class User < ActiveRecord::Base
 
-  def init
-    self.auth_token ||= SecureRandom.hex(16)
-  end
-
-  def renew_auth_token!
-    self.auth_token = SecureRandom.hex(16)
-    self.save!
-  end
+  validates :email,
+            uniqueness: true
+  validates :name,
+            uniqueness: true
 
   def is_changing_password=(value)
     @is_changing_password = value

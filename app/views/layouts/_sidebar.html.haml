@@ -4,18 +4,22 @@
       %li.nav-item.start.active.open
         = link_to posts_path, class: 'nav-link' do
           %i.icon-social-dribbble
-          %span.title My Post
+          %span.title My Posts
           %span.selected
           %span.arrow.open
-      %li.nav-item
-        %a.nav-link.nav-toggle{:href => "#"}
-          %i.icon-layers
-          %span.title Dashboard
-          %span.arrow
         %ul.sub-menu
           %li.nav-item
-            = link_to posts_path(type: 'vote'), class: 'nav-link' do
-              %span.title Vote
+            = link_to posts_new_vote_url, class: 'nav-link' do
+              %span.title New Vote
           %li.nav-item
-            = link_to posts_path(type: 'randomize'), class: 'nav-link' do
-              %span.title Randomize
+            = link_to posts_new_randomize_url, class: 'nav-link' do
+              %span.title New Randomise
+      %li.nav-item
+        = link_to posts_votes_url, class: 'nav-link' do
+          %i.icon-bar-chart
+          %span.title Vote
+          %span.arrow
+        = link_to posts_randomizes_url, class: 'nav-link' do
+          %i.icon-layers
+          %span.title Randomizer
+          %span.arrow

@@ -15,13 +15,12 @@ class SessionsController < ApplicationController
       return
     end
     if !@user.password == params[:password]
-      flash.now[:error] = 'Are you a real guru?'
+      flash.now[:notice] = 'Are you a real guru?'
       render :login, layout: nil
       return
     end
     sessionate(@user)
-    #TODO replace by dashboard path
-	redirect_to root_path
+	  redirect_to posts_path
   end
 
   def forgot_password_create

@@ -1,0 +1,112 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      = @post.type_name
+    %div.row
+      %div.col-md-12
+        %div.portlet.light
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                = @post.cat_name + " | " + @post.title
+          .portlet-body.form
+            %p
+              = "Number of selection: #{@post.number}"
+            %p
+              %img.img-rounded.img-responsive{ :src => "/images/uploads/" + @post.image_url}
+            =@post.content
+            %div.container
+              - @users.each do |user|
+                %div.user{style: "background:url('/images/avatars/" + user.id.to_s + ".jpg')", 'data-user_id': user.id, 'data-selected': (@post.randomise_result_array.include? user.id.to_s).to_s}
+                  %div.placeholder
+                  %div.name
+                    #{user.name}
+            %div.container
+              - if @post.status == 0
+                %button.btn.green.submit.start
+                  Start
+              - if @post.status == 1
+                %button.btn.green.submit.start{disabled: true}
+                  DONE
+
+-#POST IS ALREAY COMPLETED
+- if @post.status == 1
+  %script(src="/assets/randomise_complete.js")
+
+
+-#POST IS NEW
+- if @post.status == 0
+  :javascript
+    var number_of_pointers = #{@post[:number]}
+    var result = #{@view_params[:result]}
+    var post_id = #{@post[:id]}
+
+
+  :javascript
+    $(document).ready(function() {
+      var nUsers = $('.user').length
+
+      $('button.submit').click( function() {
+        if( $(this).hasClass('start') ) {
+          startRandomise()
+        } else if( $(this).hasClass('finish') ) {
+          completeRandomise()
+        }
+      })
+
+      function completeRandomise() {
+        chosen_user_id = getChosenUserId()
+        $.ajax({
+          method: "POST",
+          url: 'update_result',
+          data: {result: chosen_user_id, id: post_id},
+        }).done(function(data) {
+          window.location = data.url
+        })
+      }
+
+      function startRandomise() {
+        $button = $('button.submit')
+        $button.attr( {'disabled': true} )
+        $button.text('Running...')
+
+        for(i=0;i<number_of_pointers;i++)
+          runPointer(i)
+      }
+
+      function getChosenUserId() {
+        var ids = []
+        $('.user .placeholder .boob').each(function() {
+          ids.push($(this).parents('.user').data('user_id'))
+        })
+        return ids
+      }
+
+      function runPointer(index) {
+        var time = 3000
+        var step = 500
+        var randomInterval = setInterval( function () {
+          movePointer(index, getRandomNumber(nUsers))
+          time -= step
+          if(time <= 0) {
+            movePointer(index, result[index])
+            clearInterval(randomInterval)
+
+            //this will be executed number of times which is set by number_of_pointers
+            //but its temporarily OK for now
+            $('button.submit').attr( {'class': 'btn red submit finish', 'disabled': false} )
+            $('button.submit').text('Finish')
+          }
+        }, step)
+      }
+
+      function getRandomNumber(max) {
+        return Math.round(Math.random() * (max - 1))
+      }
+
+      function movePointer(index, position) {
+        $('.user').find('.boob.number_' + index).remove()
+        $('.user').eq(position).find('.placeholder').append('<div class="boob number_' +  index +'"></div>')
+      }
+    })

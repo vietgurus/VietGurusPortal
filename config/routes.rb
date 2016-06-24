@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-
-  get 'posts/show'
-
   scope '(:locale)', :locale => /en/ do
-    root 'posts#show'
+    root 'sessions#new'
 
     get 'login', to: 'sessions#new'
     post 'login', to: 'sessions#create'
@@ -22,12 +19,21 @@ Rails.application.routes.draw do
       end
     end
     
+
+    post 'posts/update_result', to: 'posts#update_result'
+    get 'posts/new_vote', to: 'posts#new_vote'
+    get 'posts/new_randomize', to: 'posts#new_randomize'
+    get 'posts/votes', to: 'posts#index', defaults: { type: Post::TYPE_VOTE }
+    get 'posts/randomizes', to: 'posts#index', defaults: { type: Post::TYPE_RANDOM }
+
     resources :posts do
       member do
         get 'up', to: 'posts#up'
         get 'down', to: 'posts#down'
       end
     end
+
+    resources :posts
   end
 
 

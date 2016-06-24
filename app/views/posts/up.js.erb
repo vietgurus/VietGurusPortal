@@ -1,2 +1,11 @@
-$('.btn.btn-outline.btn-circle.btn-lg.blue')
-    .html("<i class='glyphicon glyphicon-thumbs-up'> </i> <%= @post.up.split(',').count() %>");
+<% if @ajax_message[:success].present? %>
+  $('.btn.btn-outline.btn-circle.btn-lg.blue span').text("<%= @post.up.split(',').count() %>")
+
+  $user_div = $('<div class="user" style="background: url(/images/avatars/' + <%= current_user.id %> + '.jpg)"></div>')
+  $user_div.css({opacity:0});
+  $('.panel-body .result.blue').append($user_div.animate({opacity:1}, 'slow'))
+
+  $('.message').addClass('success').html('<%= @ajax_message[:success] %>').show().delay(2000).fadeOut('fast')
+<% else %>
+  $('.message').addClass('error').html('<%= @ajax_message[:error] %>').show().delay(2000).fadeOut('fast')
+<% end %>
