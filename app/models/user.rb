@@ -1,9 +1,14 @@
 class User < ActiveRecord::Base
+  has_secure_password
 
   validates :email,
             uniqueness: true
   validates :name,
-            uniqueness: true
+            uniqueness: {case_sensitive: false}
+
+  def get_avatar_path
+    "/images/avatars/" + self.id.to_s + ".jpg"
+  end
 
   def is_changing_password=(value)
     @is_changing_password = value
@@ -24,25 +29,6 @@ class User < ActiveRecord::Base
     else
       all
     end
-  end
-
-
-  def async_send_reset_password_email
-    self.delay.send_reset_password_email
-  end
-
-  def async_send_confirmation_email
-    self.delay.send_confirmation_email
-  end
-
-  private
-
-  def send_reset_password_email
-    UserMailer.forgot_password_request(self).deliver_now
-  end
-
-  def send_confirmation_email
-    UserMailer.confirmation(self).deliver_now
   end
 
   def secure_password

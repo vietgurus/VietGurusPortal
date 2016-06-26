@@ -18,18 +18,18 @@ Rails.application.routes.draw do
         post  'change_password'
       end
     end
-    
-
-    post 'posts/update_result', to: 'posts#update_result'
-    get 'posts/new_vote', to: 'posts#new_vote'
-    get 'posts/new_randomize', to: 'posts#new_randomize'
-    get 'posts/votes', to: 'posts#index', defaults: { type: Post::TYPE_VOTE }
-    get 'posts/randomizes', to: 'posts#index', defaults: { type: Post::TYPE_RANDOM }
 
     resources :posts do
       member do
         get 'up', to: 'posts#up'
         get 'down', to: 'posts#down'
+      end
+      collection do
+        post 'update_result'
+        get 'new_vote'
+        get 'new_randomize'
+        get 'votes', to: 'posts#index', defaults: { type: Post::TYPE_VOTE }
+        get 'randomizes', to: 'posts#index', defaults: { type: Post::TYPE_RANDOM }
       end
     end
 

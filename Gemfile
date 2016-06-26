@@ -51,6 +51,8 @@ gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'better_errors', '2.1.1'
 gem 'responders', '~> 2.0'
+gem 'aws-sdk', '~> 2'
+gem 'font-awesome-rails'
 
 
 

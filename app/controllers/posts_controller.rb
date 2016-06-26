@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   def index
     type = params[:type]
     if type.present?
-      @posts = Post.where(:type => type)
+      @posts = Post.where(:type => type, :group => nil)
     else
-      @posts = Post.where(:creator_id => current_user.id)
+      @posts = Post.where(:creator_id => current_user.id, :group => nil)
     end
 
     @posts.order!(id: :desc)
@@ -24,46 +24,59 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.set_creator(current_user.id)
+    if post_params[:type] == Post::TYPE_RANDOM
+      list_path = randomizes_posts_path
+    else
+      list_path = votes_posts_path
+    end
 
+    @post = Post.new(post_params)
+    @post.creator_id = current_user.id
 
     if @post.save
-      uploaded_io = post_params[:image_url]
-      file_name = @post.id.to_s + (File.extname(uploaded_io.original_filename))
-      File.open(Rails.root.join('public', 'images', 'uploads', file_name), 'wb') do |file|
-        file.write(uploaded_io.read)
+      if params[:post][:image_url].present?
+        if !(image_url = upload_image_to_s3)
+          redirect_to list_path, notice: init_message(:error, 'Upload image fail!')
+        else
+          @post.update(:image_url => image_url)
+        end
       end
-
-      @post.update(image_url: file_name)
-
-      if @post.type == Post::TYPE_RANDOM
-        redirect_to posts_randomizes_path, notice: init_message(:success, 'Create Randomise successfully')
-      else
-        redirect_to posts_votes_path, notice: init_message(:success, 'Create Vote post successfully')
-      end
+      redirect_to list_path, notice: init_message(:success, 'Create Post successfully')
+    else
+      redirect_to list_path, notice: init_message(:error, 'Create Post fail!')
     end
   end
 
   def edit
-    if ! @post.authorized? current_user.id
-      redirect_to posts_path, notice: init_message(:error, 'Wtf! It is not yours dude')
-    end
   end
 
   def update
     if @post.update(post_params)
+      if params[:post][:image_url].present?
+        image_url = upload_image_to_s3
+        if !image_url
+          flash.now[:notice] = init_message(:error, 'Upload image fail!')
+        else
+          @post.update(:image_url => image_url)
+        end
+      end
+
       if @post.type == Post::TYPE_RANDOM
-        redirect_to posts_randomizes_path, notice: init_message(:success, 'Update Randomise successfully!')
+        redirect_to randomizes_posts_path, notice: init_message(:success, 'Update Randomise successfully!')
       else
-        redirect_to posts_votes_path, notice: init_message(:success, 'Update Vote successfully!')
+        redirect_to votes_posts_path, notice: init_message(:success, 'Update Vote successfully!')
       end
     end
   end
 
   def destroy
-    if ! @post.authorized? current_user.id
-      @post.destroy
+    @post.destroy
+    if @post.is_children?
+      redirect_to post_path(@post.group), notice: init_message(:success, 'A child post is deleted successfully!')
+    elsif @post.have_children?
+      Post.destroy_all(:group => @post.id)
+      redirect_to posts_path, notice: init_message(:success, 'All posts are deleted successfully!')
+    else
       redirect_to posts_path, notice: init_message(:success, 'A post is deleted successfully!')
     end
   end
@@ -110,10 +123,20 @@ class PostsController < ApplicationController
       return ! (voted_user_ids.include? current_user.id.to_s)
     end
 
-    def show_vote_page
-      @view_params = {
+    def upload_image_to_s3
+      image_url = FileStore.random_file_path(ENV['AWS_S3_POST_DIR'], File.extname(params[:post][:image_url].original_filename))
+      s3 = FileStore.bucket
+      obj = s3.object(image_url)
+      if !obj.upload_file(File.expand_path(params[:post][:image_url].tempfile), acl:'public-read')
+        flash.now[:notice] = init_message(:error, 'Cannot upload image')
+        return false
+      end
 
-      }
+      return image_url
+    end
+
+    def show_vote_page
+      @children = Post.belongs_to_post(@post.id)
       render 'show_vote'
     end
 
@@ -123,6 +146,10 @@ class PostsController < ApplicationController
           result: Post.creat_random_result(@post[:number], @users.count)
       }
       render 'show_randomizer'
+    end
+
+    def edit_vote_group_page
+      render 'edit_vote_group'
     end
 
     def set_post
@@ -135,7 +162,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:id, :cat_name, :title, :content, :image_url, :up, :down, :creator_id, :result, :number, :type)
+      params.require(:post).permit(:id, :group, :cat_name, :title, :content, :up, :down, :creator_id, :result, :number, :type)
     end
 
     def get_title(type)

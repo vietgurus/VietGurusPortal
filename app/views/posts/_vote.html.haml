@@ -2,6 +2,11 @@
   .form-body
     %div.form-group
       %label.control-label.col-md-3
+        Group with:
+      .col-md-9
+        = f.select :group, Post.get_groups, {}, {class: 'form-control select2_category'}
+    %div.form-group
+      %label.control-label.col-md-3
         Category:
       .col-md-9
         = f.select :cat_name, ['Party', 'Cinema', 'Team Building', 'Massage', 'Other'], {}, {class: 'form-control select2_category'}

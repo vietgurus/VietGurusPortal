@@ -10,18 +10,14 @@
         %ul.nav.navbar-nav.pull-right
           %li.dropdown.dropdown-user
             %a.dropdown-toggle{"data-close-others" => "true", "data-hover" => "dropdown", "data-toggle" => "dropdown", :href => "javascript:;"}
-              -#%span.username= current_user.email
+              %span.username= current_user.name
               %i.fa.fa-angle-down
             %ul.dropdown-menu.dropdown-menu-default
               %li
-                %a{:href => "page_user_profile_1.html"}
+                = link_to edit_user_path(current_user.id) do
                   %i.icon-user
                   My Profile
               %li
-                %a{:href => "app_calendar.html"}
-                  %i.icon-calendar
-                  Password
-              %li
-                %a{:href => "page_user_login_1.html"}
+                = link_to logout_path, method: :delete do
                   %i.icon-key
                   Log Out

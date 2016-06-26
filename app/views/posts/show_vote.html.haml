@@ -10,35 +10,13 @@
               %i.icon-social-dribbble.font-green
               %span.caption-subject.font-green.bold.uppercase
                 = @post.cat_name + " | " + @post.title
-          %div.row
-            %div.col-sm-6{ :style => 'width: 40%' }
-              - if @post.image_url.present?
-                %img.img-rounded.img-responsive{ :src => "/images/uploads/" + @post.image_url, :width => '100%'}
-              - else
-                %div.no_image
-            %div.col-sm-6{ :style => 'width: 60%' }
-              .panel.panel-info
-                .panel-heading.vote_control
-                  %div.message
-                  =link_to up_post_path(@post), remote: true, class: 'btn btn-outline btn-circle btn-lg blue' do
-                    %i.glyphicon.glyphicon-thumbs-up
-                    %span
-                      =@post.up.present?? @post.up.split(',').count() : 0
-                  =link_to down_post_path(@post) ,remote: true, class: 'btn btn-outline btn-circle btn-lg red' do
-                    %i.glyphicon.glyphicon-thumbs-down
-                    %span
-                      =@post.down.present?? @post.down.split(',').count() : 0
-                .panel-body
-                  %div.result.blue
-                    %i.glyphicon.glyphicon-thumbs-up.up
-                    - if @post.vote_result_array[:up].present?
-                      - @post.vote_result_array[:up].each do |id|
-                        %div.user{style: "background: url(/images/avatars/" + id.to_s + ".jpg)"}
-                  %div.result.red
-                    %i.glyphicon.glyphicon-thumbs-down.down
-                    - if @post.vote_result_array[:down].present?
-                      - @post.vote_result_array[:down].each do |id|
-                        %div.user{style: "background: url(/images/avatars/" + id.to_s + ".jpg)"}
-                  %div.content
-                    =@post.content
+          = render "display_vote", :post => @post
+          - @children.each do |child|
+            %div.row
+              %p
+                - if child.authorized? current_user.id
+                  %div{style: 'text-align: right'}
+                    %a.delete{data: {toggle: 'modal', target: '#confirm-delete', href: post_path(child)}}
+                      Remove
+            = render "display_vote", :post => child
           %div.portlet-body.flip-scroll

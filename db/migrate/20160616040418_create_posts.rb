@@ -1,6 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
+      t.integer :group
       t.string  :cat_name
       t.string  :title
       t.string  :content
@@ -12,6 +13,8 @@ class CreatePosts < ActiveRecord::Migration
       t.string  :result
       t.integer :number
       t.integer :type
+
+      t.timestamps null: false
     end
   end
 end

@@ -12,10 +12,11 @@
                 = @post.cat_name + " | " + @post.title
           .portlet-body.form
             %p
+              %img.img-rounded.img-responsive{ :src => FileStore.public_url(@post.image_url)}
+            %p
               = "Number of selection: #{@post.number}"
             %p
-              %img.img-rounded.img-responsive{ :src => "/images/uploads/" + @post.image_url}
-            =@post.content
+              =@post.content
             %div.container
               - @users.each do |user|
                 %div.user{style: "background:url('/images/avatars/" + user.id.to_s + ".jpg')", 'data-user_id': user.id, 'data-selected': (@post.randomise_result_array.include? user.id.to_s).to_s}

@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-
   self.inheritance_column = nil
+  before_destroy :delete_image_from_s3
 
   TYPE_RANDOM = 2
   TYPE_VOTE = 1
@@ -12,16 +12,20 @@ class Post < ActiveRecord::Base
   validates :cat_name,
             presence: true
 
+  scope :groups, -> { where(:group => nil).order(:id => :desc) }
+  scope :belongs_to_post, -> (id) { where(:group => id).order(:id => :desc) }
+  scope :max_up, -> (parent_id) { where('id = :id OR posts.group = 1',
+                                          { id: "#{parent_id}" } )
+                                    .order('length(up) DESC')
+                                    .first
+                                }
+
   def type_name
     if self.type == TYPE_RANDOM
       'Randomizer'
     else
       'Vote'
     end
-  end
-
-  def set_creator(id)
-    self.creator_id = id
   end
 
   def authorized?(user_id)
@@ -47,9 +51,35 @@ class Post < ActiveRecord::Base
     array
   end
 
+  def have_children?
+    children = Post.where(:group => self.id)
+    return children.present?? children : false
+  end
+
+  def is_children?
+    self.group.present?
+  end
+
   def self.creat_random_result(number_taken, total)
     shuffle_array = (0..total-1).to_a.shuffle
     shuffle_array.first(number_taken)
   end
+
+  def self.get_groups
+    groups = {"None" => ""}
+    Post.groups.each do |post|
+      groups[post.cat_name + " | " + post.title] = post.id
+    end
+    groups
+  end
+
+  private
+    def delete_image_from_s3
+      if self.image_url.present?
+        s3 = FileStore.bucket
+        obj = s3.object(self.image_url)
+        obj.delete
+      end
+    end
 
 end

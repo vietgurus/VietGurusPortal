@@ -1,8 +1,7 @@
 %div.page-content-wrapper
   %div.page-content
     %h3.page-title
-      New User Profile | Account
-      %small user account page
+      = "#{@user.name}'s profile"
     .row
       .col-md-12
         .profile-sidebar
@@ -10,58 +9,63 @@
           .portlet.light.profile-sidebar-portlet
             / SIDEBAR USERPIC
             .profile-userpic
-              %img.img-responsive{:alt => "", :src => "/images/profile_user.jpg"}
+              %img.img-responsive{:alt => "", :src => @user.get_avatar_path}
             / END SIDEBAR USERPIC
             / SIDEBAR USER TITLE
             .profile-usertitle
-              .profile-usertitle-name Marcus Doe
-              .profile-usertitle-job Developer
+              .profile-usertitle-name
+                = @user.name
+              .profile-usertitle-job
+                A Guru
+                %br
+                  &nbsp;
+
             / END SIDEBAR USER TITLE
             / SIDEBAR BUTTONS
-            .profile-userbuttons
-              %button.btn.btn-circle.green.btn-sm{:type => "button"} Follow
-              %button.btn.btn-circle.red.btn-sm{:type => "button"} Message
+            -#.profile-userbuttons
+            -#  %button.btn.btn-circle.green.btn-sm{:type => "button"} Follow
+            -#  %button.btn.btn-circle.red.btn-sm{:type => "button"} Message
             / END SIDEBAR BUTTONS
             / SIDEBAR MENU
-            .profile-usermenu
-              %ul.nav
-                %li
-                  %a{:href => "page_user_profile_1.html"}
-                    %i.icon-home
-                    Overview
-                %li.active
-                  %a{:href => "page_user_profile_1_account.html"}
-                    %i.icon-settings
-                    Account Settings
-                %li
-                  %a{:href => "page_user_profile_1_help.html"}
-                    %i.icon-info
-                    Help
-          .portlet.light
+            -#.profile-usermenu
+            -#  %ul.nav
+            -#    %li
+            -#      %a{:href => "page_user_profile_1.html"}
+            -#        %i.icon-home
+            -#        Overview
+            -#    %li.active
+            -#      %a{:href => "page_user_profile_1_account.html"}
+            -#        %i.icon-settings
+            -#        Account Settings
+            -#    %li
+            -#      %a{:href => "page_user_profile_1_help.html"}
+            -#        %i.icon-info
+            -#        Help
+          -#.portlet.light
             / STAT
-            .row.list-separated.profile-stat
-              .col-md-4.col-sm-4.col-xs-6
-                .uppercase.profile-stat-title 37
-                .uppercase.profile-stat-text Projects
-              .col-md-4.col-sm-4.col-xs-6
-                .uppercase.profile-stat-title 51
-                .uppercase.profile-stat-text Tasks
-              .col-md-4.col-sm-4.col-xs-6
-                .uppercase.profile-stat-title 61
-                .uppercase.profile-stat-text Uploads
+            -#.row.list-separated.profile-stat
+            -#  .col-md-4.col-sm-4.col-xs-6
+            -#    .uppercase.profile-stat-title 37
+            -#    .uppercase.profile-stat-text Projects
+            -#  .col-md-4.col-sm-4.col-xs-6
+            -#    .uppercase.profile-stat-title 51
+            -#    .uppercase.profile-stat-text Tasks
+            -#  .col-md-4.col-sm-4.col-xs-6
+            -#    .uppercase.profile-stat-title 61
+            -#    .uppercase.profile-stat-text Uploads
             / END STAT
-            %div
-              %h4.profile-desc-title About Marcus Doe
-              %span.profile-desc-text Lorem ipsum dolor sit amet diam nonummy nibh dolore.
-              .margin-top-20.profile-desc-link
-                %i.fa.fa-globe
-                %a{:href => "http://www.keenthemes.com"} www.keenthemes.com
-              .margin-top-20.profile-desc-link
-                %i.fa.fa-twitter
-                %a{:href => "http://www.twitter.com/keenthemes/"} @keenthemes
-              .margin-top-20.profile-desc-link
-                %i.fa.fa-facebook
-                %a{:href => "http://www.facebook.com/keenthemes/"} keenthemes
+            -#%div
+            -#  %h4.profile-desc-title About Marcus Doe
+            -#  %span.profile-desc-text Lorem ipsum dolor sit amet diam nonummy nibh dolore.
+            -#  .margin-top-20.profile-desc-link
+            -#    %i.fa.fa-globe
+            -#    %a{:href => "http://www.keenthemes.com"} www.keenthemes.com
+            -#  .margin-top-20.profile-desc-link
+            -#    %i.fa.fa-twitter
+            -#    %a{:href => "http://www.twitter.com/keenthemes/"} @keenthemes
+            -#  .margin-top-20.profile-desc-link
+            -#    %i.fa.fa-facebook
+            -#    %a{:href => "http://www.facebook.com/keenthemes/"} keenthemes
         .profile-content
           .row
             .col-md-12
@@ -72,13 +76,7 @@
                     %span.caption-subject.font-blue-madison.bold.uppercase Profile Account
                   %ul.nav.nav-tabs
                     %li.active
-                      %a{"data-toggle" => "tab", :href => "#tab_1_1"} Personal Info
-                    %li
-                      %a{"data-toggle" => "tab", :href => "#tab_1_2"} Change Avatar
-                    %li
                       %a{"data-toggle" => "tab", :href => "#tab_1_3"} Change Password
-                    %li
-                      %a{"data-toggle" => "tab", :href => "#tab_1_4"} Privacy Settings
                 .portlet-body
                   .tab-content
                     - if flash[:error].present?
@@ -91,88 +89,88 @@
                         %button.close{"data-close" => "alert"}
                         %span
                           = flash[:notice]
-                    #tab_1_1.tab-pane.active
-                      = render "update_form"
-                    #tab_1_2.tab-pane
-                      %p
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                        eiusmod.
-                      %form{:action => "#", :role => "form"}
-                        .form-group
-                          .fileinput.fileinput-new{"data-provides" => "fileinput"}
-                            .fileinput-new.thumbnail{:style => "width: 200px; height: 150px;"}
-                              %img{:alt => "", :src => "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"}
-                            .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 200px; max-height: 150px;"}
-                            %div
-                              %span.btn.default.btn-file
-                                %span.fileinput-new Select image
-                                %span.fileinput-exists Change
-                                %input{:name => "...", :type => "file"}
-                              %a.btn.default.fileinput-exists{"data-dismiss" => "fileinput", :href => "javascript:;"} Remove
-                          .clearfix.margin-top-10
-                            %span.label.label-danger NOTE!
-                            %span Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only
-                        .margin-top-10
-                          %a.btn.green{:href => "javascript:;"} Submit
-                          %a.btn.default{:href => "javascript:;"} Cancel
+                    -##tab_1_1.tab-pane.active
+                    -#  = render "update_form"
+                    -##tab_1_2.tab-pane
+                    -#  %p
+                    -#    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                    -#    eiusmod.
+                    -#  %form{:action => "#", :role => "form"}
+                    -#    .form-group
+                    -#      .fileinput.fileinput-new{"data-provides" => "fileinput"}
+                    -#        .fileinput-new.thumbnail{:style => "width: 200px; height: 150px;"}
+                    -#          %img{:alt => "", :src => "http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"}
+                    -#        .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 200px; max-height: 150px;"}
+                    -#        %div
+                    -#          %span.btn.default.btn-file
+                    -#            %span.fileinput-new Select image
+                    -#            %span.fileinput-exists Change
+                    -#            %input{:name => "...", :type => "file"}
+                    -#          %a.btn.default.fileinput-exists{"data-dismiss" => "fileinput", :href => "javascript:;"} Remove
+                    -#      .clearfix.margin-top-10
+                    -#        %span.label.label-danger NOTE!
+                    -#        %span Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only
+                    -#    .margin-top-10
+                    -#      %a.btn.green{:href => "javascript:;"} Submit
+                    -#      %a.btn.default{:href => "javascript:;"} Cancel
                     / END CHANGE AVATAR TAB
                     / CHANGE PASSWORD TAB
-                    #tab_1_3.tab-pane
+                    #tab_1_3.tab-pane.active
                       = render "change_password_form"
                     / END CHANGE PASSWORD TAB
                     / PRIVACY SETTINGS TAB
                     #tab_1_4.tab-pane
                       %form{:action => "#"}
-                        %table.table.table-light.table-hover
-                          %tr
-                            %td Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus..
-                            %td
-                              .mt-radio-inline
-                                %label.mt-radio
-                                  %input{:name => "optionsRadios1", :type => "radio", :value => "option1"}/
-                                  Yes
-                                  %span
-                                %label.mt-radio
-                                  %input{:checked => "", :name => "optionsRadios1", :type => "radio", :value => "option2"}/
-                                  No
-                                  %span
-                          %tr
-                            %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                            %td
-                              .mt-radio-inline
-                                %label.mt-radio
-                                  %input{:name => "optionsRadios11", :type => "radio", :value => "option1"}/
-                                  Yes
-                                  %span
-                                %label.mt-radio
-                                  %input{:checked => "", :name => "optionsRadios11", :type => "radio", :value => "option2"}/
-                                  No
-                                  %span
-                          %tr
-                            %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                            %td
-                              .mt-radio-inline
-                                %label.mt-radio
-                                  %input{:name => "optionsRadios21", :type => "radio", :value => "option1"}/
-                                  Yes
-                                  %span
-                                %label.mt-radio
-                                  %input{:checked => "", :name => "optionsRadios21", :type => "radio", :value => "option2"}/
-                                  No
-                                  %span
-                          %tr
-                            %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
-                            %td
-                              .mt-radio-inline
-                                %label.mt-radio
-                                  %input{:name => "optionsRadios31", :type => "radio", :value => "option1"}/
-                                  Yes
-                                  %span
-                                %label.mt-radio
-                                  %input{:checked => "", :name => "optionsRadios31", :type => "radio", :value => "option2"}/
-                                  No
-                                  %span
+                        -#%table.table.table-light.table-hover
+                        -#  %tr
+                        -#    %td Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus..
+                        -#    %td
+                        -#      .mt-radio-inline
+                        -#        %label.mt-radio
+                        -#          %input{:name => "optionsRadios1", :type => "radio", :value => "option1"}/
+                        -#          Yes
+                        -#          %span
+                        -#        %label.mt-radio
+                        -#          %input{:checked => "", :name => "optionsRadios1", :type => "radio", :value => "option2"}/
+                        -#          No
+                        -#          %span
+                        -#  %tr
+                        -#    %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+                        -#    %td
+                        -#      .mt-radio-inline
+                        -#        %label.mt-radio
+                        -#          %input{:name => "optionsRadios11", :type => "radio", :value => "option1"}/
+                        -#          Yes
+                        -#          %span
+                        -#        %label.mt-radio
+                        -#          %input{:checked => "", :name => "optionsRadios11", :type => "radio", :value => "option2"}/
+                        -#          No
+                        -#          %span
+                        -#  %tr
+                        -#    %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+                        -#    %td
+                        -#      .mt-radio-inline
+                        -#        %label.mt-radio
+                        -#          %input{:name => "optionsRadios21", :type => "radio", :value => "option1"}/
+                        -#          Yes
+                        -#          %span
+                        -#        %label.mt-radio
+                        -#          %input{:checked => "", :name => "optionsRadios21", :type => "radio", :value => "option2"}/
+                        -#          No
+                        -#          %span
+                        -#  %tr
+                        -#    %td Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+                        -#    %td
+                        -#      .mt-radio-inline
+                        -#        %label.mt-radio
+                        -#          %input{:name => "optionsRadios31", :type => "radio", :value => "option1"}/
+                        -#          Yes
+                        -#          %span
+                        -#        %label.mt-radio
+                        -#          %input{:checked => "", :name => "optionsRadios31", :type => "radio", :value => "option2"}/
+                        -#          No
+                        -#          %span
                         / end profile-settings
-                        .margin-top-10
-                          %a.btn.red{:href => "javascript:;"} Save Changes
-                          %a.btn.default{:href => "javascript:;"} Cancel
+                        -#.margin-top-10
+                        -#  %a.btn.red{:href => "javascript:;"} Save Changes
+                        -#  %a.btn.default{:href => "javascript:;"} Cancel

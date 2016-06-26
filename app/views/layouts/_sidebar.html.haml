@@ -9,17 +9,16 @@
           %span.arrow.open
         %ul.sub-menu
           %li.nav-item
-            = link_to posts_new_vote_url, class: 'nav-link' do
+            = link_to new_vote_posts_path, class: 'nav-link' do
               %span.title New Vote
           %li.nav-item
-            = link_to posts_new_randomize_url, class: 'nav-link' do
+            = link_to new_randomize_posts_path, class: 'nav-link' do
               %span.title New Randomise
       %li.nav-item
-        = link_to posts_votes_url, class: 'nav-link' do
+        = link_to votes_posts_path, class: 'nav-link' do
           %i.icon-bar-chart
           %span.title Vote
-          %span.arrow
-        = link_to posts_randomizes_url, class: 'nav-link' do
+        = link_to randomizes_posts_path, class: 'nav-link' do
           %i.icon-layers
           %span.title Randomizer
           %span.arrow

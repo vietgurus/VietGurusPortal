@@ -11,6 +11,5 @@ CSV.foreach(Rails.root.join('db/seeds/users.csv'), headers: true) do |row|
   user = User.find_or_create_by(name: row[0])
   user.password = row[1]
   user.email = row[2]
-  user.avatar = row[3]
   user.save!
 end

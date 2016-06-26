@@ -7,20 +7,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:email])
+    @user = User.where('lower(name) = ?', params[:name].downcase).first
     if !@user.present?
       @user = User.new()
       flash.now[:error] = 'Are you a real guru?'
       render :login, layout: nil
       return
     end
-    if !@user.password == params[:password]
-      flash.now[:notice] = 'Are you a real guru?'
+    if !@user.authenticate(params[:password])
+      flash.now[:error] = 'Are you a real guru?'
       render :login, layout: nil
       return
     end
     sessionate(@user)
-	  redirect_to posts_path
+	  redirect_to posts_path``
   end
 
   def forgot_password_create
@@ -58,7 +58,7 @@ class SessionsController < ApplicationController
 
   def destroy
     desessionate
-    redirect_to root_path
+    redirect_to login_path
   end
 
   private

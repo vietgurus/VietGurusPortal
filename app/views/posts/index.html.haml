@@ -12,18 +12,19 @@
                 = @title
           .portlet-body.form
             - @posts.each do |post|
+              - children = post.have_children?
               %div{class: "mt-element-ribbon bg-grey-steel post type_#{post.type}",
-                style: "background-image: url(/images/uploads/#{post.image_url}) !important",
+                style: "background-image: url(#{FileStore.public_url(post.image_url)}) !important",
                 'data-url': "#{post_path(post.id)}"}
                 %div.header
                   %div{class: "category ribbon ribbon-color-default uppercase"}
-                    = post.cat_name
+                    = "#{post.cat_name}" + (children ? " (#{children.count+1})" : "")
                   %div.control
                     - if post.authorized? current_user.id
                       %a{href: edit_post_path(post)}
                         Edit
                       |
-                      %a{data: {toggle: 'modal', target: '#confirm-delete', href: post_path(post)}}
+                      %a.delete{data: {toggle: 'modal', target: '#confirm-delete', href: post_path(post)}}
                         Delete
                 %div.space
                 %div.text
@@ -33,13 +34,20 @@
                     = post.content
                 %div.footer
                   -if post.type == 1
+                    - if children
+                      - post_with_highest_up = Post.max_up(post.id)
+                      - count_up = post_with_highest_up.vote_result_array[:up].length
+                      - count_down = post_with_highest_up.vote_result_array[:down].length
+                    - else
+                      - count_up = post.vote_result_array[:up].length
+                      - count_down = post.vote_result_array[:down].length
                     %div.up
                       %div.number
-                        = count_up = post.vote_result_array[:up].length
+                        = count_up
                       Up
                     %div.down
                       %div.number
-                        = count_down = post.vote_result_array[:down].length
+                        = count_down
                       Down
                     %div.unknown
                       %div.number
@@ -51,12 +59,7 @@
 
 :javascript
   $(document).ready(function() {
-    $('.post .text').click(function() {
+    $('.post .space, .post .text').click(function() {
       window.location = $(this).parents('.post').data('url')
-    })
-
-    $('.post a').click(function(e) {
-      // e.preventDefault();
-      // e.stopPropagation();
     })
   })

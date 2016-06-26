@@ -1,0 +1,1 @@
+(function(){$(document).ready(function(){return $(".user[data-selected=true]").each(function(){return $(this).find(".placeholder").append('<div class="boob">')})})}).call(this);

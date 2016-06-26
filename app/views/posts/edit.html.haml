@@ -46,6 +46,6 @@
                     %button.btn.green{:type => 'submit'}
                       Submit
                     - if @post.type == Post::TYPE_RANDOM
-                      = link_to 'Cancel', posts_randomizes_url, class: 'btn default'
+                      = link_to 'Cancel', randomizes_posts_path, class: 'btn default'
                     - else
-                      = link_to 'Cancel', posts_votes_url, class: 'btn default'
+                      = link_to 'Cancel', votes_posts_url, class: 'btn default'
