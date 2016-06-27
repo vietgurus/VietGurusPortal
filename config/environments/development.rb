@@ -1,9 +1,9 @@
 Rails.application.configure do
   # S3
-  ENV['AWS_ACCESS_KEY_ID']     = 'AKIAILQ4F6MMOHJRR5GA'
-  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
+  ENV['AWS_ACCESS_KEY_ID']     = 'AKIAJ2DGQRC6B45XC5HQ'
+  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
   ENV['AWS_REGION']            = 'ap-southeast-1'
-  ENV['AWS_S3_BUCKET']         = 'vietgurus'
+  ENV['AWS_S3_BUCKET']         = 'vietgurus-nightly'
   ENV['AWS_S3_POST_DIR']     = 'posts'
 
   # Settings specified here will take precedence over those in config/application.rb.
