@@ -16,7 +16,7 @@
             %p
               = "Number of selection: #{@post.number}"
             %p
-              =@post.content
+              = simple_format @post.content
             %div.container
               - @users.each do |user|
                 %div.user{style: "background:url('/images/avatars/" + user.id.to_s + ".jpg')", 'data-user_id': user.id, 'data-selected': (@post.randomise_result_array.include? user.id.to_s).to_s}

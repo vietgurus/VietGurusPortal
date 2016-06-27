@@ -24,12 +24,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    if post_params[:type] == Post::TYPE_RANDOM
-      list_path = randomizes_posts_path
-    else
-      list_path = votes_posts_path
-    end
-
     @post = Post.new(post_params)
     @post.creator_id = current_user.id
 
@@ -41,9 +35,9 @@ class PostsController < ApplicationController
           @post.update(:image_url => image_url)
         end
       end
-      redirect_to list_path, notice: init_message(:success, 'Create Post successfully')
+      redirect_to post_path(@post), notice: init_message(:success, 'Create Post successfully')
     else
-      redirect_to list_path, notice: init_message(:error, 'Create Post fail!')
+      redirect_to posts_path, notice: init_message(:error, 'Create Post fail!')
     end
   end
 

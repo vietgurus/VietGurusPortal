@@ -28,4 +28,4 @@
             - post.vote_result_array[:down].each do |id|
               %div.user{style: "background: url(/images/avatars/" + id.to_s + ".jpg)"}
         %div.content
-          =post.content
+          = simple_format post.content
