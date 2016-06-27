@@ -33,8 +33,14 @@
 
 -#POST IS ALREAY COMPLETED
 - if @post.status == 1
-  %script(src="/assets/randomise_complete.js")
-
+  -# Its not running, why?
+  -#%script(src="/assets/randomise_complete.js")
+  :javascript
+    $(document).ready( function() {
+      $('.user[data-selected=true]').each( function() {
+        $(this).find('.placeholder').append('<div class="boob">')
+      })
+    })
 
 -#POST IS NEW
 - if @post.status == 0
