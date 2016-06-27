@@ -1,3 +1,14 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 25
+  database: <%= ENV["PG_DATABASE"] %>
+  username: <%= ENV["PG_USERNAME"] %>
+  password: <%= ENV["PG_PASSWORD"] %>
+  template: template0
+  host: <%= ENV["PG_HOST"] %>
+  port: <%= ENV["PG_PORT"] %>
+
 development:
   adapter: postgresql
   encoding: unicode
