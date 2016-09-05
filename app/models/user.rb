@@ -1,4 +1,11 @@
 class User < ActiveRecord::Base
+  enum role: [:user, :leader, :admin]
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+    self.role ||= :user
+  end
+
   has_secure_password
 
   validates :email,

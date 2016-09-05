@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :init_user, only: [:show, :edit, :update, :change_password, :destroy]
+  before_action :init_user, only: [:show, :edit, :update, :change_password, :destroy, :update_role]
 
   # GET /users
   def index
+    authorize @current_user
     @users = User.all
     if params[:keyword]
       @users = @users.search(params[:keyword])
@@ -47,10 +48,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_role
+    begin
+      if @user.update(user_params)
+        flash.now[:notice] = 'You\'re definitely a guru!'
+        flash.keep
+        redirect_to users_path
+      else
+        flash.now[:error] = 'Something bad happened! Are you a guru?'
+        flash.keep
+        redirect_to users_path
+      end
+    rescue StandardError
+      redirect_to users_path
+    end
+  end
+
   # DELETE /users/1
   def destroy
     @user.destroy
     flash.now[:notice] = 'You broke our heart!'
+    flash.keep
     redirect_to users_url
   end
 
@@ -97,10 +115,16 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :name, 
         :email,
-        :password
+        :password,
+        :role
       )
     end
 
+    def role_params
+      params.require(:user).permit(
+          :role
+      )
+    end
     # Only allow a trusted parameter "white list" through.
     def profile_params
       params.require(:user).permit(

@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 20160616040418) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "password"
-    t.string "password_digest"
-    t.string "email"
-    t.string "avatar"
+    t.string  "name"
+    t.string  "password"
+    t.string  "password_digest"
+    t.string  "email"
+    t.integer "role"
   end
 
 end

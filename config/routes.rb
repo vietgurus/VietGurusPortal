@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     post 'forgot_password_create', to: 'sessions#forgot_password_create'
     post 'new_password_create', to: 'sessions#new_password_create'
     get 'confirm_email', to: 'users#confirm_email'
+    get 'users', to: 'users#index'
+    post 'users/update_role/:id', to: 'users#update_role', as: :update_role
 
     resources :users do
       collection do

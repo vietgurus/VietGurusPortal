@@ -1,0 +1,57 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      User management
+    %div.row
+      %div.col-md-12
+        %div.portlet.light.some(style="float: left;")
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                Users
+          .portlet-body.form.form-horizontal.form-bordered.form-label-stripped
+            .tab-content.form-bordered
+              - if flash[:error].present?
+                .alert.alert-danger.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:error]
+              - if flash[:notice].present?
+                .alert.alert-success.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:notice]
+              .form-body
+                %div.form-group.col-md-12
+                  %label.control-label.col-md-1
+                    %b ID
+                  %label.control-label.col-md-2
+                    %b Avatar
+                  %label.control-label.col-md-3
+                    %b Name
+                  %label.control-label.col-md-3
+                    %b Email
+                  %label.control-label.col-md-2
+                    %b Role
+                  %label.control-label.col-md-1
+                    %b Delete
+                - @users.each do |user|
+                  %div.form-group.col-md-12
+                    %div.col-md-1
+                      #{user.id}
+                    %div.col-md-2
+                      %img.img-responsive.some(style='width: 100px;'){:alt => "", :src => user.get_avatar_path}
+                    %div.col-md-3
+                      #{user.name}
+                    %div.col-md-3
+                      #{user.email}
+                    %div.col-md-2
+                      - if user != current_user
+                        = form_for(user, url: {:action => 'update_role', :id => user.id}, method: 'post') do |f|
+                          =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]})
+                          =f.submit 'Change Role', :class => 'btn green'
+                      - else
+                        #{user.role}
+                    %div.col-md-1
+                      = link_to('Delete user', user_path(user), :data => {:confirm => 'Hey gurus ! Are you sure ?'}, :method => :delete, :class => 'btn btn-danger') unless user == current_user

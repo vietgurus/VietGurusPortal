@@ -22,3 +22,8 @@
           %i.icon-layers
           %span.title Randomizer
           %span.arrow
+        - if policy(@current_user).index?
+          = link_to users_path, class: 'nav-link' do
+            %i.icon-users
+            %span.title Users
+            %span.arrow

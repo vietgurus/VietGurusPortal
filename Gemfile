@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'better_errors', '2.1.1'
 end
 
 group :development do
@@ -49,10 +50,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'haml-rails'
 gem 'bootstrap-sass'
-gem 'better_errors', '2.1.1'
 gem 'responders', '~> 2.0'
 gem 'aws-sdk', '~> 2'
 gem 'font-awesome-rails'
+gem 'pundit'
 
 
 
