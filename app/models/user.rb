@@ -1,17 +1,17 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :leader, :admin]
-  after_initialize :set_default_role, :if => :new_record?
-
-  def set_default_role
-    self.role ||= :user
-  end
-
   has_secure_password
+  after_initialize :set_default_role, if: :new_record?
+
+  enum role: [:user, :leader, :admin]
 
   validates :email,
             uniqueness: true
   validates :name,
             uniqueness: {case_sensitive: false}
+
+  def set_default_role
+    self.role ||= :user
+  end
 
   def get_avatar_path
     "/images/avatars/" + self.id.to_s + ".jpg"

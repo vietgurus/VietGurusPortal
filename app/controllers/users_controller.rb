@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     authorize @current_user
-    @users = User.all
+    @users = User.all.order(:id)
     if params[:keyword]
       @users = @users.search(params[:keyword])
     else
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      flash.now[:notice] = 'You\'re definitely a guru!'
+      flash.now[:notice] = "Hey #{@user.name}! You've changed your info, any dark work?"
       flash.keep
       redirect_to edit_user_path(@user)
     else
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update_role
     begin
       if @user.update(user_params)
-        flash.now[:notice] = 'You\'re definitely a guru!'
+        flash.now[:notice] = "#{@user.name}'s role is updated!"
         flash.keep
         redirect_to users_path
       else
@@ -67,16 +67,16 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
-    flash.now[:notice] = 'You broke our heart!'
+    flash.now[:notice] = "Goodbye #{@user.name}. You broke our heart!"
     flash.keep
+    @user.destroy
     redirect_to users_url
   end
 
   # POST /update_profile
   def update_profile
     if @current_user.update(profile_params)
-      flash.now[:notice] = 'You\'re definitely a guru!'
+      flash.now[:notice] = "Hey #{@user.name}! You've changed your info, any dark work?"
       flash.keep
       redirect_to edit_user_path(@user)
     else

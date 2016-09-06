@@ -8,8 +8,10 @@
 require 'csv'
 
 CSV.foreach(Rails.root.join('db/seeds/users.csv'), headers: true) do |row|
-  user = User.find_or_create_by(name: row[0])
-  user.password = row[1]
-  user.email = row[2]
+  user = User.find_or_create_by(name: row[1])
+  user.id = row[0]
+  user.password = row[2]
+  user.email = row[3]
+  user.role = row[5]
   user.save!
 end
