@@ -1,4 +1,4 @@
-=form_for @user, url: {controller: 'users', action: 'create'}, html: {class: 'register-form'} do |f|
+=form_for @user, url: {controller: 'users', action: 'create'}, method: 'post', html: {class: 'register-form'} do |f|
   %h3 Sign Up
   %p Enter your personal details below:
   .form-group

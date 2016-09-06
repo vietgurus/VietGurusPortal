@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'confirm_email', to: 'users#confirm_email'
     get 'users', to: 'users#index'
     post 'users/update_role/:id', to: 'users#update_role', as: :update_role
+    post 'users/', to: 'users#create'
 
     resources :users do
       collection do
