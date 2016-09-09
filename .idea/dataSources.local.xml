@@ -5,5 +5,9 @@
       <secret-storage>master_key</secret-storage>
       <user-name>nykdev</user-name>
     </data-source>
+    <data-source name="PostgreSQL - postgres@localhost" uuid="7b783d1d-a38d-4e13-8191-470235321410">
+      <secret-storage>master_key</secret-storage>
+      <user-name>nykdev</user-name>
+    </data-source>
   </component>
 </project>

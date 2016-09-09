@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
 
-  before_action :authenticate
-  before_action :set_locale
+  before_action :authenticate, :set_locale, :init_gcal
 
   helper_method :current_user
 
@@ -14,6 +13,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     redirect_to login_path if current_user.blank?
   end
+
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   def desessionate
     session[:user_id] = nil
+    session[:token] = nil
     @current_user = nil
   end
 
@@ -57,6 +58,14 @@ class ApplicationController < ActionController::Base
     result[:warning] = message if type == :warning
     result[:title] = title
     result.to_json
+  end
+
+  def init_gcal
+    @@cal ||= Google::Calendar.new(:client_id     => "96835738130-pnjvdcu8jb4teh62ge5bfp4mhe6cq10a.apps.googleusercontent.com",
+                                :client_secret => "lokVi_ZSMi-kWhBqVElxRwXq",
+                                :calendar      => "vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com",
+                                :redirect_url  => "http://vietgurusportal.herokuapp.com/oauth2callback" # this is what Google uses for 'applications'
+    )
   end
 
 end

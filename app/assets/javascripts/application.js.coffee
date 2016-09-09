@@ -32,6 +32,14 @@
 #= require bootstrap-datepicker.min
 #= require bootstrap-confirmation.min
 #= require toastr
+#= require moment.min
+#= require fullcalendar.min
+#= require events
+#= require gcal
+#= require bootstrap/collapse
+#= require bootstrap/transition
+#= require bootstrap-datetimepicker
+
 
 
 $(document).on('ready page:load', () ->

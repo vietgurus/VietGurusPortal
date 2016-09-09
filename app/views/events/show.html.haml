@@ -1,0 +1,83 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      Events management
+    %div.row
+      - className = if session[:token].nil? then 'col-md-12' else 'col-md-8' end
+      %div{class: "#{className}"}
+        %div.portlet.light.some(style="float: left;")
+          %div.portlet-title
+            %div.caption
+              %i.icon-social-dribbble.font-green
+              %span.caption-subject.font-green.bold.uppercase
+                Events
+                - if session[:token].nil?
+                  = link_to 'Authorize', @auth_link.to_s,  {:style=>'position: absolute;right: 35px; top:15px;', :class => 'btn btn-default'}
+          .portlet-body
+            .tab-content.form-bordered
+              - if flash[:error].present?
+                .alert.alert-danger.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:error]
+              - if flash[:notice].present?
+                .alert.alert-success.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:notice]
+              %div.col-md-12{ :id => 'calendar'}
+      - if !session[:token].nil?
+        %div.col-md-4
+          %div.col-md-12.portlet.light(style="float: left;")
+            %div.portlet-title
+              %div.caption
+                %i.icon-social-dribbble.font-green
+                %span.caption-subject.font-green.bold.uppercase
+                  Add events
+            .portlet-body
+              .tab-content.form-bordered
+              - if flash[:error_event].present?
+                .alert.alert-danger.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:error_event]
+              - if flash[:notice_event].present?
+                .alert.alert-success.display-show
+                  %button.close{"data-close" => "alert"}
+                  %span
+                    = flash[:notice_event]
+            %div.col-md-12
+              = form_for @event, url: {:action => 'create'}, html: {class: 'form-horizontal form-bordered form-label-stripped'} do |f|
+                .form-body
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      Title:
+                    .col-md-9
+                      = f.text_field :title , class: 'form-control'
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      Location:
+                    .col-md-9
+                      = f.text_field :location , class: 'form-control'
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      Start time:
+                    .col-md-9
+                      = f.text_field :start_time ,  class: 'form-control'
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      End time:
+                    .col-md-9
+                      = f.text_field :end_time ,  class: 'form-control'
+                  %div.form-group
+                    %label.control-label.col-md-3
+                      Description
+                    .col-md-9
+                      = f.text_area :description, class: 'form-control'
+                .form-actions
+                  .row
+                    .col-md-offset-3.col-md-12
+                      %button.text-center.btn.green{:type => 'submit'}
+                        Submit
+                      %button.text-center.btn.default{:type => 'reset'}
+                        Reset
