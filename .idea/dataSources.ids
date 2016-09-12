@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="PostgreSQL - vgPortal@localhost" uuid="b8c62657-b0f9-4fdc-be56-2f0900a754f2">
+    <database-info product="PostgreSQL" version="9.4.8" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+  </data-source>
+  <data-source name="PostgreSQL - postgres@localhost" uuid="7b783d1d-a38d-4e13-8191-470235321410">
+    <database-info product="PostgreSQL" version="9.4.8" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.5">
+      <database id="1" name="postgres"/>
+      <schema id="2" parent="1" name="public">
+        <object-id>2200</object-id>
+        <comment>standard public schema</comment>
+        <introspection-timestamp>2016-09-07.14:46:14.360</introspection-timestamp>
+      </schema>
+    </database-model>
+  </data-source>
+</component>
