@@ -34,11 +34,11 @@
 #= require toastr
 #= require moment.min
 #= require fullcalendar.min
-#= require events
 #= require gcal
 #= require bootstrap/collapse
 #= require bootstrap/transition
 #= require bootstrap-datetimepicker
+#= require events
 
 
 

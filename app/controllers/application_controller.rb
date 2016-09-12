@@ -60,12 +60,11 @@ class ApplicationController < ActionController::Base
   end
 
   def init_gcal
-    @@cal ||= Google::Calendar.new(:client_id     => "96835738130-pnjvdcu8jb4teh62ge5bfp4mhe6cq10a.apps.googleusercontent.com",
-                                :client_secret => "lokVi_ZSMi-kWhBqVElxRwXq",
-                                :calendar      => "vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com",
-                                :redirect_url  => "https://vietgurusportal.herokuapp.com/oauth2callback" # this is what Google uses for 'applications'
+    @@cal ||= Google::Calendar.new(:client_id     => ENV['GCAL_CLIENT_ID'],
+                                :client_secret => ENV['GCAL_CLIENT_SECRET'],
+                                :calendar      => ENV['GCAL_CALENDAR_ID'],
+                                :redirect_url  => ENV['GCAL_CALLBACK_URL'] # this is what Google uses for 'applications'
     )
   end
-
 end
 
