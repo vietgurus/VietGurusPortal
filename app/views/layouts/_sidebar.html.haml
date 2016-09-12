@@ -18,12 +18,19 @@
         = link_to votes_posts_path, class: 'nav-link' do
           %i.icon-bar-chart
           %span.title Vote
+      %li.nav-item
         = link_to randomizes_posts_path, class: 'nav-link' do
           %i.icon-layers
           %span.title Randomizer
           %span.arrow
+      %li.nav-item
         - if policy(@current_user).index?
           = link_to users_path, class: 'nav-link' do
             %i.icon-users
             %span.title Users
             %span.arrow
+      %li.nav-item
+        = link_to events_path, class: 'nav-link' do
+          %i.icon-calendar
+          %span.title Events
+          %span.arrow

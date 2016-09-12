@@ -23,35 +23,35 @@
                   %span
                     = flash[:notice]
               .form-body
-                %div.form-group.col-md-12
-                  %label.control-label.col-md-1
+                %div.form-group.col-md-12.hidden-xs.hidden-sm
+                  %div.text-center.col-md-1
                     %b ID
-                  %label.control-label.col-md-2
+                  %div.text-center.col-md-2
                     %b Avatar
-                  %label.control-label.col-md-3
+                  %div.text-center.col-md-3
                     %b Name
-                  %label.control-label.col-md-3
+                  %div.text-center.col-md-3
                     %b Email
-                  %label.control-label.col-md-2
+                  %div.text-center.col-md-2
                     %b Role
-                  %label.control-label.col-md-1
+                  %div.text-center.col-md-1
                     %b Delete
                 - @users.each do |user|
                   %div.form-group.col-md-12
-                    %div.col-md-1
+                    %div.text-center.col-md-1
                       #{user.id}
-                    %div.col-md-2
-                      %img.img-responsive.some(style='width: 100px;'){:alt => "", :src => user.get_avatar_path}
-                    %div.col-md-3
+                    %div.text-center.col-md-2
+                      %img.img-responsive(style='width: 100px; margin: 0 auto;'){:alt => "", :src => user.get_avatar_path}
+                    %div.text-center.col-md-3
                       #{user.name}
-                    %div.col-md-3
+                    %div.text-center.col-md-3
                       #{user.email}
-                    %div.col-md-2
+                    %div.text-center.col-md-2
                       - if user != current_user
                         = form_for(user, url: {:action => 'update_role', :id => user.id}, method: 'post') do |f|
                           =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]})
                           =f.submit 'Change Role', :class => 'btn green'
                       - else
                         #{user.role}
-                    %div.col-md-1
+                    %div.text-center.col-md-1
                       = link_to('Delete user', user_path(user), :data => {:confirm => 'Hey gurus ! Are you sure ?'}, :method => :delete, :class => 'btn btn-danger') unless user == current_user

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="PostgreSQL - vgPortal@localhost" uuid="b8c62657-b0f9-4fdc-be56-2f0900a754f2">
-      <secret-storage>master_key</secret-storage>
-      <user-name>nykdev</user-name>
-    </data-source>
-  </component>
-</project>

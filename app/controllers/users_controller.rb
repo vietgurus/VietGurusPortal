@@ -87,20 +87,22 @@ class UsersController < ApplicationController
   # POST /change_password
   def change_password
     current_user.is_changing_password = true
-    if current_user.authenticate params[:current_password]
 
-      if !params[:password].present?
-        flash.now[:error] = 'Gurus don\'t leave password empty'
-      elsif params[:password] != params[:password_confirmation]
-        flash.now[:error] = 'Gurus don\'t misstype password'
-      elsif @user.update(change_password_params)
-        flash.now[:notice] = 'That\'s why we call you guru! Easy job right?'
-      else
-        flash.now[:error] = 'Try again, guru'
-      end
-    else
-      flash.now[:error] = 'Sometimes, gurus forget their password.'
+    flash.now[:error] = 'Sometimes, gurus forget their password.' unless current_user.authenticate params[:current_password]
+    flash.now[:error] = 'Gurus don\'t leave password empty'       unless params[:password].present?
+    flash.now[:error] = 'Gurus don\'t misstype password'          unless params[:password] == params[:password_confirmation]
+    if flash.now[:error].any?
+      flash.keep
+      redirect_to edit_user_path(@user)
+      return
     end
+
+    if @user.update(change_password_params)
+      flash.now[:notice] = 'That\'s why we call you guru! Easy job right?'
+    else
+      flash.now[:error] = 'Cannot update, guru'
+    end
+
     flash.keep
     redirect_to edit_user_path(@user)
   end

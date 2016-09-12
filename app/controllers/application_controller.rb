@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
 
-  before_action :authenticate
-  before_action :set_locale
+  before_action :authenticate, :set_locale, :init_gcal
 
   helper_method :current_user
 
@@ -25,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   def desessionate
     session[:user_id] = nil
+    session[:token] = nil
     @current_user = nil
   end
 
@@ -59,5 +59,12 @@ class ApplicationController < ActionController::Base
     result.to_json
   end
 
+  def init_gcal
+    @@cal ||= Google::Calendar.new(:client_id     => ENV['GCAL_CLIENT_ID'],
+                                :client_secret => ENV['GCAL_CLIENT_SECRET'],
+                                :calendar      => ENV['GCAL_CALENDAR_ID'],
+                                :redirect_url  => ENV['GCAL_CALLBACK_URL'] # this is what Google uses for 'applications'
+    )
+  end
 end
 

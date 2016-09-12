@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'users', to: 'users#index'
     post 'users/update_role/:id', to: 'users#update_role', as: :update_role
     post 'users/', to: 'users#create'
+    get '/oauth2callback' => 'events#callback'
 
     resources :users do
       collection do
@@ -37,6 +38,8 @@ Rails.application.routes.draw do
     end
 
     resources :posts
+    resource :events
+
   end
 
 
