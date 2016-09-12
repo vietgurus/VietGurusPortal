@@ -3,8 +3,7 @@
     %h3.page-title
       Events management
     %div.row
-      - className = if session[:token].nil? then 'col-md-12' else 'col-md-8' end
-      %div{class: "#{className}"}
+      %div{class: "col-md-12"}
         %div.portlet.light.some(style="float: left;")
           %div.portlet-title
             %div.caption
@@ -27,7 +26,7 @@
                     = flash[:notice]
               %div.col-md-12{ :id => 'calendar'}
       - if !session[:token].nil?
-        %div.col-md-4
+        %div.col-md-12
           %div.col-md-12.portlet.light(style="float: left;")
             %div.portlet-title
               %div.caption

@@ -33,8 +33,6 @@
 
 -#POST IS ALREAY COMPLETED
 - if @post.status == 1
-  -# Its not running, why?
-  -#%script(src="/assets/randomise_complete.js")
   :javascript
     $(document).ready( function() {
       $('.user[data-selected=true]').each( function() {

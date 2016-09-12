@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
     redirect_to login_path if current_user.blank?
   end
 
-
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
@@ -64,7 +63,7 @@ class ApplicationController < ActionController::Base
     @@cal ||= Google::Calendar.new(:client_id     => "96835738130-pnjvdcu8jb4teh62ge5bfp4mhe6cq10a.apps.googleusercontent.com",
                                 :client_secret => "lokVi_ZSMi-kWhBqVElxRwXq",
                                 :calendar      => "vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com",
-                                :redirect_url  => "http://vietgurusportal.herokuapp.com/oauth2callback" # this is what Google uses for 'applications'
+                                :redirect_url  => "https://vietgurusportal.herokuapp.com/oauth2callback" # this is what Google uses for 'applications'
     )
   end
 

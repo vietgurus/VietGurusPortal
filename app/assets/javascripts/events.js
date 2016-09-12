@@ -1,5 +1,9 @@
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
+$(document).ready(function() {
+  var $event_start_time = $("#event_start_time")
+  var $event_end_time = $("#event_end_time")
+  var $calendar = $('#calendar')
+
+  $calendar.fullCalendar({
     googleCalendarApiKey: 'AIzaSyDh22GkOyrdOIIIyrmqwciNlgOndM-iZAk',
     eventSources: [
         {
@@ -11,28 +15,28 @@
         }
     ],
     eventClick: function(event) {
-        // opens events in a popup window
         var new_window = window.open(event.url, 'gcalevent', 'width=700,height=600');
         new_window.onbeforeunload = function(){
-            console.log('unload');
-            $('#calendar').fullCalendar('refetchEvents')
+          $calendar.fullCalendar('refetchEvents')
         }
         return false;
     }
   });
 
-      $('#event_start_time').datetimepicker({
-          format: 'D-M-YYYY HH:mm',
-      });
-      $('#event_end_time').datetimepicker({
-          format: 'D-M-YYYY HH:mm',
-          useCurrent: false
-      });
-      $("#event_start_time").on("dp.change", function (e) {
-          $('#event_end_time').data("DateTimePicker").minDate(e.date);
-      });
-      $("#event_end_time").on("dp.change", function (e) {
-          $('#event_start_time').data("DateTimePicker").maxDate(e.date);
-      });
+  $event_start_time
+    .datetimepicker({
+        format: 'D-M-YYYY HH:mm'
+    })
+    .on("dp.change", function (e) {
+        $event_end_time.data("DateTimePicker").minDate(e.date);
+    });
+  $event_end_time
+    .datetimepicker({
+        format: 'D-M-YYYY HH:mm',
+        useCurrent: false
+    })
+    .on("dp.change", function (e) {
+        $event_start_time.data("DateTimePicker").maxDate(e.date);
+    });
 });
 
