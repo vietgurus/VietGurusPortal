@@ -28,7 +28,7 @@
                     %b ID
                   %div.text-center.col-md-2
                     %b Avatar
-                  %div.text-center.col-md-3
+                  %div.text-center.col-md-2
                     %b Name
                   %div.text-center.col-md-3
                     %b Email
@@ -42,14 +42,14 @@
                       #{user.id}
                     %div.text-center.col-md-2
                       %img.img-responsive(style='width: 100px; margin: 0 auto;'){:alt => "", :src => user.get_avatar_path}
-                    %div.text-center.col-md-3
+                    %div.text-center.col-md-2
                       #{user.name}
                     %div.text-center.col-md-3
                       #{user.email}
                     %div.text-center.col-md-2
                       - if user != current_user
                         = form_for(user, url: {:action => 'update_role', :id => user.id}, method: 'post') do |f|
-                          =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]})
+                          =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]},{}, {class: 'form-control select2_category', style: 'margin-bottom: 10px'})
                           =f.submit 'Change Role', :class => 'btn green'
                       - else
                         #{user.role}
