@@ -56,6 +56,5 @@ gem 'font-awesome-rails'
 gem 'pundit'
 gem 'signet', '~> 0.7.3'
 gem 'google_calendar', '~> 0.4.4'
-
-
+gem 'paperclip'
 

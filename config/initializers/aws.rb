@@ -1,3 +1,3 @@
-Aws.config[:credentials] = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
-Aws.config[:region] = ENV['AWS_REGION']
+#Aws.config[:credentials] = Aws::Credentials.new('AKIAIQI3MI25SYELUTZA', 'pszMU/iz2i5eihpbbrcRajvjE+Uz7xS66qdg4h65')
+#Aws.config[:region] = ENV['AWS_REGION']
 
