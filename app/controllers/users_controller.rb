@@ -28,6 +28,14 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+    avatar = params[:user][:avatar]
+    avatar = params[:user][:avatar]
+    if avatar.present?
+      temp_path = "/temp/#{avatar.original_filename}"
+      FileStore.bucket.put_object(key: temp_path, body: avatar, acl: 'public-read')
+      image.save!
+      @user.image_id = image.id
+    end
     @user = User.new(user_params)
     if @user.save
       flash.now[:notice] = 'Welcome onboard!'
@@ -47,6 +55,19 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def update_avatar
+    user = User.find_by(id: params[:user][:id])
+    avatar = params[:user][:avatar]
+    if avatar.present?
+      image = Image.new
+      image.temp_path = "/temp/#{avatar.original_filename}"
+      FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
+      image.save!
+      update_params[:image_id] = image.id
+    end
+    if user.update(update_params)
   end
 
   def update_role

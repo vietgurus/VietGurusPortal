@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909022825) do
+ActiveRecord::Schema.define(version: 20161019163340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "path"
+    t.string   "temp_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,11 +46,16 @@ ActiveRecord::Schema.define(version: 20160909022825) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.string  "password"
-    t.string  "password_digest"
-    t.string  "email"
-    t.integer "role"
+    t.string   "name"
+    t.string   "password"
+    t.string   "password_digest"
+    t.string   "email"
+    t.integer  "role"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "avatar"
   end
 
 end
