@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
+  #has_one :image
+
   def set_default_role
     self.role ||= :user
   end

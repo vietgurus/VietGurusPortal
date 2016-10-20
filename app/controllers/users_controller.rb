@@ -3,12 +3,22 @@ class UsersController < ApplicationController
   before_action :init_user, only: [:show, :edit, :update, :change_password, :destroy, :update_role, :create]
 
   def update_avatar
-    user = User.find_by(id: params[:user][:id])
-    if user.update(update_avatar_params)
-      s3 = Aws::S3::Client.new
-      #resp = s3.list_buckets
-      resp = s3.list_objects(bucket: 'vietgurus-nightly', max_keys: 50)
-      resp
+    user    = User.find_by(id: params[:user][:id])
+    update_params = user_params
+    if params[:user][:avatar]
+      avatar  = params[:user][:avatar]
+      image = Image.new
+      image.temp_path = "/temp/#{avatar.original_filename}"
+      FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
+      image.save
+      update_params[:image_id] = image.id
+    end
+
+    if user.update(update_params)
+      redirect_to users_path
+    else
+      flash.now[:error] = 'Something wrong! Please recheck your photo'
+      redirect_to edit_user_path
     end
   end
 
@@ -123,7 +133,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def init_user
-      @user = User.find_by(id: params[:id])
+      @user = User.find_by_id(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
@@ -133,7 +143,7 @@ class UsersController < ApplicationController
         :email,
         :password,
         :role,
-        :avatar
+        :image_id
       )
     end
 
