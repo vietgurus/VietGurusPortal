@@ -2,6 +2,26 @@ class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:create]
   before_action :init_user, only: [:show, :edit, :update, :change_password, :destroy, :update_role, :create]
 
+  def update_avatar
+    user    = User.find_by(id: params[:user][:id])
+    update_params = user_params
+    if params[:user][:avatar]
+      avatar  = params[:user][:avatar]
+      image = Image.new
+      image.temp_path = "/temp/#{avatar.original_filename}"
+      FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
+      image.save
+      update_params[:image_id] = image.id
+    end
+
+    if user.update(update_params)
+      redirect_to users_path
+    else
+      flash.now[:error] = 'Something wrong! Please recheck your photo'
+      redirect_to edit_user_path
+    end
+  end
+
   # GET /users
   def index
     authorize @current_user
@@ -20,6 +40,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    @user = User.new
   end
 
   # GET /users/1/edit
@@ -28,13 +49,15 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-    if @user.save
-      flash.now[:notice] = 'Welcome onboard!'
-      render 'sessions/login', layout: nil
-    else
-      flash.now[:error] = 'Something bad happened! Are you a guru?'
-      render 'sessions/login', layout: nil
+    if current_user.admin?
+      @user = User.new(user_params)
+      if @user.save
+        flash.now[:notice] = 'Welcome onboard!'
+        redirect_to users_path
+      else
+        flash.now[:error] = 'Something bad happened! Are you a guru?'
+        redirect_to new_user_path
+      end
     end
   end
 
@@ -119,7 +142,8 @@ class UsersController < ApplicationController
         :name, 
         :email,
         :password,
-        :role
+        :role,
+        :image_id
       )
     end
 
@@ -139,7 +163,14 @@ class UsersController < ApplicationController
     def change_password_params
       params.permit(
           :password,
-          :password_confirmation
+          :password_confirmation,
+      )
+    end
+
+    def update_avatar_params
+      params.require(:user).permit(
+          :id,
+          :avatar
       )
     end
 end
