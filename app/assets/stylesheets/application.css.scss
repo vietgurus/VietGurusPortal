@@ -201,3 +201,26 @@ New Profile Page
     overflow: visible;
   }
 }
+
+.overlay-layer{
+  width:200px;
+  height:40px;
+  position:absolute;
+  margin-top:-40px;
+  opacity:0.5;
+  background-color:#000000;
+  z-index:0;
+  font-size:16px;
+  color:white;
+  text-align:center;
+  line-height:40px;
+  margin-left: 50px;
+}
+.upload_btn{
+  position:absolute;
+  width:200px;
+  height:40px;
+  margin-top:-40px;
+  z-index:10;
+  opacity:0;
+}

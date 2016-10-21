@@ -3,7 +3,7 @@ Rails.application.configure do
   ENV['AWS_ACCESS_KEY_ID']     = 'AKIAJLUQ4PLG6D77BAJQ'
   ENV['AWS_SECRET_ACCESS_KEY'] = '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'
   ENV['AWS_REGION']            = 'ap-southeast-1'
-  ENV['AWS_S3_BUCKET']         = 'guardian-nightly'
+  ENV['AWS_S3_BUCKET']         = 'vietgurus-nightly'
   ENV['AWS_S3_AVATAR_DIR']     = 'avatars'
 
   # AIS
@@ -58,4 +58,14 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_credentials: {
+          bucket: ENV.fetch('AWS_S3_BUCKET'),
+          access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+          secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+          s3_region: ENV.fetch('AWS_REGION'),
+      }
+  }
 end

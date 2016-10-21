@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/oauth2callback' => 'events#callback'
 
     resources :users do
+      post   'update_avatar'
       collection do
         get   'profile'
         get   'password'
