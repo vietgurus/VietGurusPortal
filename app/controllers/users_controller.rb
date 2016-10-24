@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:create]
   before_action :init_user, only: [:show, :edit, :update, :change_password, :destroy, :update_role, :create]
+  before_action :set_token, only: [:create, :update]
 
   def update_avatar
     user    = User.find_by(id: params[:user][:id])
@@ -51,6 +52,18 @@ class UsersController < ApplicationController
   def create
     if current_user.admin?
       @user = User.new(user_params)
+      update_params = user_params
+      if params[:user][:avatar]
+        avatar  = params[:user][:avatar]
+        image = Image.new
+        image.temp_path = "/temp/#{avatar.original_filename}"
+        FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
+        image.save
+        update_params[:image_id] = image.id
+      end
+      @user = User.new(update_params)
+      @user.api_token = @token
+
       if @user.save
         flash.now[:notice] = 'Welcome onboard!'
         redirect_to users_path
@@ -63,7 +76,9 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    update_params = user_params
+    update_params[:token] = @token
+    if @user.update(update_params)
       flash.now[:notice] = "Hey #{@user.name}! You've changed your info, any dark work?"
       flash.keep
       redirect_to edit_user_path(@user)
@@ -167,10 +182,15 @@ class UsersController < ApplicationController
       )
     end
 
+    def set_token
+      @token = SecureRandom.hex(64)
+    end
+
     def update_avatar_params
       params.require(:user).permit(
           :id,
           :avatar
       )
     end
+
 end
