@@ -20,6 +20,13 @@ class SessionsController < ApplicationController
       return
     end
     sessionate(@user)
+
+    if params[:remember]
+      cookies.permanent[:token] = @user.api_token
+    else
+      cookies[:token] = @user.api_token
+    end
+
 	  redirect_to posts_path``
   end
 
@@ -58,6 +65,7 @@ class SessionsController < ApplicationController
 
   def destroy
     desessionate
+    cookies.delete(:token)
     redirect_to login_path
   end
 
