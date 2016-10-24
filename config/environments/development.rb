@@ -1,23 +1,23 @@
 Rails.application.configure do
   # S3
-  ENV['AWS_ACCESS_KEY_ID']     = 'AKIAJLUQ4PLG6D77BAJQ'
-  ENV['AWS_SECRET_ACCESS_KEY'] = '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'
-  ENV['AWS_REGION']            = 'ap-southeast-1'
-  ENV['AWS_S3_BUCKET']         = 'vietgurus-nightly'
-  ENV['AWS_S3_AVATAR_DIR']     = 'avatars'
+  ENV['AWS_ACCESS_KEY_ID']     = ''
+  ENV['AWS_SECRET_ACCESS_KEY'] = ''
+  ENV['AWS_REGION']            = ''
+  ENV['AWS_S3_BUCKET']         = ''
+  ENV['AWS_S3_AVATAR_DIR']     = ''
 
   # AIS
-  ENV['EXACT_AIS_API_TOKEN'] = '1ad4a03e-5b28-4b42-a84a-ddf5ef12fe1a'
+  ENV['EXACT_AIS_API_TOKEN'] = ''
 
   # WNI
-  ENV['WNI_API_UID']         = 'scs'
-  ENV['WNI_API_PASSWORD']    = 'LCiouXk'
+  ENV['WNI_API_UID']         = ''
+  ENV['WNI_API_PASSWORD']    = ''
 
   # Google Calendar API
-  ENV['GCAL_CLIENT_ID'] = '96835738130-pnjvdcu8jb4teh62ge5bfp4mhe6cq10a.apps.googleusercontent.com'
-  ENV['GCAL_CLIENT_SECRET'] = 'lokVi_ZSMi-kWhBqVElxRwXq'
-  ENV['GCAL_CALENDAR_ID'] = 'vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com'
-  ENV['GCAL_CALLBACK_URL'] = 'http://localhost:3000/oauth2callback'
+  ENV['GCAL_CLIENT_ID'] = ''
+  ENV['GCAL_CLIENT_SECRET'] = ''
+  ENV['GCAL_CALENDAR_ID'] = ''
+  ENV['GCAL_CALLBACK_URL'] = ''
 
   # Settings specified here will take precedence over those in config/application.rb.
 
