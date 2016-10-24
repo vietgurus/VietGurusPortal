@@ -1,0 +1,31 @@
+%div.page-content-wrapper
+  %div.page-content
+    %h3.page-title
+      = "New User"
+    .row
+      .col-md-12
+        .profile-content
+          .row
+            .col-md-12
+              .portlet.light
+                .portlet-title.tabbable-line
+                  .caption.caption-md
+                    %i.icon-globe.theme-font.hide
+                    %span.caption-subject.font-blue-madison.bold.uppercase Profile Account
+                  %ul.nav.nav-tabs
+                    %li.active
+                      %a{"data-toggle" => "tab", :href => "#tab_1_3"} New User
+                .portlet-body
+                  .tab-content
+                    - if flash[:error].present?
+                      .alert.alert-danger.display-show
+                        %button.close{"data-close" => "alert"}
+                        %span
+                          = flash[:error]
+                    - if flash[:notice].present?
+                      .alert.alert-success.display-show
+                        %button.close{"data-close" => "alert"}
+                        %span
+                          = flash[:notice]
+                    #tab_1_3.tab-pane.active
+                      = render "sign_up_form"

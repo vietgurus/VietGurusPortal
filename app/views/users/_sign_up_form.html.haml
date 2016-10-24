@@ -1,6 +1,14 @@
 =form_for @user, url: {controller: 'users', action: 'create'}, method: 'post', html: {class: 'register-form'} do |f|
-  %h3 Sign Up
-  %p Enter your personal details below:
+  .form-group
+    %label.control-label.visible-ie8.visible-ie9 Avatar
+    %div
+      %div
+        %div
+          = image_tag "/images/team_logo.png", class: "img img-responsive", id: "avatar_img"
+          = f.hidden_field :id
+          = f.file_field :avatar, class: "upload", id: "avatar"
+
+        /.overlay-layer.col-lg-12.margin-horizontal-5 Upload Photo
   .form-group
     %label.control-label.visible-ie8.visible-ie9 Name
     .input-icon
@@ -24,5 +32,6 @@
         %i.fa.fa-check
         %input.form-control.placeholder-no-fix{:autocomplete => "off", :name => "rpassword", :placeholder => "Re-type Your Password", :type => "password"}/
   .form-actions
-    %button#register-back-btn.btn.red.btn-outline{:type => "button"} Back
+    = link_to "Back", users_path, class: "btn red btn-outline", :type => "button"
     %button#register-submit-btn.btn.green.pull-right{:type => "submit"} Sign Up
+

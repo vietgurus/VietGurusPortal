@@ -9,16 +9,28 @@
           .portlet.light.profile-sidebar-portlet
             / SIDEBAR USERPIC
             .profile-userpic
-              %img.img-responsive{:alt => "", :src => @user.get_avatar_path}
+              - image = Image.find_by(id: @user.image_id)
+              - if image
+                - src = image.url
+              - else
+                - src = "/images/team_logo.png"
+              = image_tag src, class: "img img-responsive"
             / END SIDEBAR USERPIC
             / SIDEBAR USER TITLE
+            = form_for @user, url: user_update_avatar_path(@user), method: :post  do |f|
+              = f.hidden_field :id
+
+              = f.file_field :avatar, class: "upload_btn"
+
+              .overlay-layer.col-lg-12.margin-horizontal-5 Upload Photo
+              %br
+              %button.btn.btn-outline{:type => "submit", :style => "text-align:center;margin-left:120px"} Save
             .profile-usertitle
               .profile-usertitle-name
                 = @user.name
               .profile-usertitle-job
                 A Guru
                 %br
-                  &nbsp;
 
             / END SIDEBAR USER TITLE
             / SIDEBAR BUTTONS

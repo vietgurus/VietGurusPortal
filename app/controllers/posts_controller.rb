@@ -136,8 +136,11 @@ class PostsController < ApplicationController
 
     def show_randomizer_page
       @users = User.all.shuffle
+      res = Post.creat_random_result(@post[:number], @users.count)
+      @post.result = res.join(",")
+      @post.save!
       @view_params = {
-          result: Post.creat_random_result(@post[:number], @users.count)
+          result: res       
       }
       render 'show_randomizer'
     end

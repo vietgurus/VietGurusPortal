@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   scope '(:locale)', :locale => /en/ do
-    root 'sessions#new'
+    root 'posts#index'
 
     get 'login', to: 'sessions#new'
     post 'login', to: 'sessions#create'
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/oauth2callback' => 'events#callback'
 
     resources :users do
+      post   'update_avatar'
       collection do
         get   'profile'
         get   'password'
@@ -42,5 +43,28 @@ Rails.application.routes.draw do
 
   end
 
+  # Mobile APIs
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      namespace :public do
+        post   'auth_code'  => 'session#auth_code'
+        post   'api_token'  => 'session#api_token'
+        post   'sign_out'   => 'session#sign_out'
+      end
 
+      resources :posts do
+        get 'up'
+        get 'down'
+        get 'update_random' => 'posts#update_random'
+        collection do
+          post 'update_result'
+          get 'new_vote'
+          get 'new_randomize' => 'posts#update_random'
+          get 'votes', to: 'posts#index', defaults: { type: Post::TYPE_VOTE }
+          get 'randomizes', to: 'posts#index', defaults: { type: Post::TYPE_RANDOM }
+        end
+      end
+    end
+
+  end
 end
