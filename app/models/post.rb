@@ -60,15 +60,19 @@ class Post < ActiveRecord::Base
     self.group.present?
   end
 
-  def self.creat_random_result(number_taken, total)
+  def self.create_random_result(number_taken, total)
     shuffle_array = (0..total-1).to_a.shuffle
     shuffle_array.first(number_taken)
   end
 
   def self.get_groups
-    groups = {"None" => ""}
-    Post.groups.each do |post|
-      groups[post.cat_name + " | " + post.title] = post.id
+    groups = { "None" => [["None", ""]]}
+    Post.groups.where(:type => TYPE_VOTE).group_by { |post| post[:cat_name] }.each do |category|
+      name = category[0]
+      groups[name] = []
+      category[1].each do |post|
+        groups[name] << [post.title, post.id]
+      end
     end
     groups
   end

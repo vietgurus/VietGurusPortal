@@ -39,7 +39,7 @@
 #= require bootstrap/transition
 #= require bootstrap-datetimepicker
 #= require events
-
+#= require select2-full
 
 
 $(document).on('ready page:load', () ->

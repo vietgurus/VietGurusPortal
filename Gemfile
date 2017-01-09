@@ -58,5 +58,4 @@ gem 'signet', '~> 0.7.3'
 gem 'google_calendar', '~> 0.4.4'
 gem 'paperclip'
 gem 'rails_12factor', group: :production
-
-
+gem 'select2-rails', '~> 4.0', '>= 4.0.3'

@@ -20,6 +20,8 @@ class SessionsController < ApplicationController
       return
     end
     sessionate(@user)
+    @user.last_login_time = Time.now
+    @user.save
 	  redirect_to posts_path``
   end
 

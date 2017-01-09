@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
   after_initialize :set_default_role, if: :new_record?
 
+  scope :login_today, -> { where('last_login_time > ? and last_login_time < ?', Date.today, Date.tomorrow) }
+
   enum role: [:user, :leader, :admin]
 
   validates :email,
