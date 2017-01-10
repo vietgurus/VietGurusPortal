@@ -46,9 +46,9 @@
                     %div.text-center.col-md-1
                       #{user.id}
                     %div.text-center.col-md-2
-                      - image = Image.find_by(id: user.image_id)
-                      - if image
-                        - src = image.url
+                      -#- image = Image.find_by(id: user.image_id)
+                      - unless user.image_url.nil?
+                        - src = user.image_url
                       - else
                         - src = "/images/team_logo.png"
                       = image_tag src, class: "img-responsive", alt: "", style: "width: 100px; margin: 0 auto;"

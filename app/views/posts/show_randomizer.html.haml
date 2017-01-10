@@ -19,12 +19,13 @@
               = simple_format @post.content
             %div.container
               - @users.each do |user|
-                - image = Image.find_by(id: user.image_id)
-                - if image
-                  - src = image.url
+                - unless user.image_url.nil?
+                  - src = user.image_url
                 - else
                   - src = "/images/team_logo.png"
                 %div.user{style: "background:url('#{src}')", 'data-user_id': user.id, 'data-selected': (@post.randomise_result_array.include? user.id.to_s).to_s}
+                  %div.remove-user{style: "cursor:pointer"}
+                    x
                   %div.placeholder
                   %div.name
                     #{user.name}
@@ -56,6 +57,11 @@
   :javascript
     $(document).ready(function() {
       var nUsers = $('.user').length
+
+      $('.remove-user').click(function () {
+        $(this).parent().remove()
+        nUsers--
+      })
 
       $('button.submit').click( function() {
         if( $(this).hasClass('start') ) {
@@ -97,10 +103,12 @@
         var time = 5000
         var step = 500
         var randomInterval = setInterval( function () {
-          movePointer(index, getRandomNumber(nUsers))
+          var newPosition = getRandomNumber(nUsers)
+          movePointer(index, newPosition)
           time -= step
+          // Setup new position
+          result[index] = newPosition
           if(time <= 0) {
-            movePointer(index, result[index])
             clearInterval(randomInterval)
 
             //this will be executed number of times which is set by number_of_pointers
