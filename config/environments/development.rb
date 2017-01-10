@@ -19,6 +19,13 @@ Rails.application.configure do
   ENV['GCAL_CALENDAR_ID'] = 'vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com'
   ENV['GCAL_CALLBACK_URL'] = 'http://localhost:3000/oauth2callback'
 
+  # Imgur
+  ENV['IMGUR_ID']       = 'd17be6dd29b4f8d'
+  ENV['IMGUR_SECRET']   = 'abdd220df783817b792e184a2add206fe645d570'
+  ENV['IMGUR_REFRESH']  = '2711f79c2e1d5b7753d5b74b7594d439faf3d8a8'
+  ENV['IMGUR_TOKEN']    = 'dbac55f90118b3b8dc420e16286071600af70167'
+  ENV['IMGUR_ALBUM_ID'] = 'vtB6K'
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

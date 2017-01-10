@@ -6,12 +6,25 @@ class UsersController < ApplicationController
     user    = User.find_by(id: params[:user][:id])
     update_params = user_params
     if params[:user][:avatar]
-      avatar  = params[:user][:avatar]
-      image = Image.new
-      image.temp_path = "/temp/#{avatar.original_filename}"
-      FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
-      image.save
-      update_params[:image_id] = image.id
+
+      # Option for uploading to Imgur
+      # See ref: https://api.imgur.com/endpoints/image
+      options = {}
+      options[:image]  = params[:user][:avatar]
+      options[:title] = user.id
+      options[:description] = user.name
+      options[:album_id] = ENV['IMGUR_ALBUM_ID']
+      imgur_image = Imgur::Image.create(options)
+      update_params[:image_id] = imgur_image['id']
+      update_params[:image_url] = imgur_image['link']
+
+      # For 3S AWS. No use now.
+      # avatar  = params[:user][:avatar]
+      # image = Image.new
+      # image.temp_path = "/temp/#{avatar.original_filename}"
+      # FileStore.bucket.put_object(key: image.temp_path, body: avatar, acl: 'public-read')
+      # image.save
+      # update_params[:image_id] = image.id
     end
 
     if user.update(update_params)

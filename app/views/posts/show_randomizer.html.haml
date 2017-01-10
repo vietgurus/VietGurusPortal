@@ -19,9 +19,8 @@
               = simple_format @post.content
             %div.container
               - @users.each do |user|
-                - image = Image.find_by(id: user.image_id)
-                - if image
-                  - src = image.url
+                - unless user.image_url.nil?
+                  - src = user.image_url
                 - else
                   - src = "/images/team_logo.png"
                 %div.user{style: "background:url('#{src}')", 'data-user_id': user.id, 'data-selected': (@post.randomise_result_array.include? user.id.to_s).to_s}

@@ -9,9 +9,9 @@
           .portlet.light.profile-sidebar-portlet
             / SIDEBAR USERPIC
             .profile-userpic
-              - image = Image.find_by(id: @user.image_id)
-              - if image
-                - src = image.url
+              -#- image = Image.find_by(id: @user.image_id)
+              - unless @user.image_url.nil?
+                - src = @user.image_url
               - else
                 - src = "/images/team_logo.png"
               = image_tag src, class: "img img-responsive"
