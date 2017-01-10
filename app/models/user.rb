@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def get_avatar_path
-    "/images/avatars/" + self.id.to_s + ".jpg"
+    image_url.nil? || image_url.empty? ? "/images/team_logo.png" : image_url
   end
 
   def is_changing_password=(value)
@@ -56,4 +56,8 @@ class User < ActiveRecord::Base
     return result
   end
 
+  def self.get_avatar_path_by_id (user_id)
+    user = User.find(user_id)
+    user.get_avatar_path
+  end
 end

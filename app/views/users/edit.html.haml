@@ -9,12 +9,7 @@
           .portlet.light.profile-sidebar-portlet
             / SIDEBAR USERPIC
             .profile-userpic
-              -#- image = Image.find_by(id: @user.image_id)
-              - unless @user.image_url.nil?
-                - src = @user.image_url
-              - else
-                - src = "/images/team_logo.png"
-              = image_tag src, class: "img img-responsive"
+              = image_tag @user.get_avatar_path, class: "img img-responsive"
             / END SIDEBAR USERPIC
             / SIDEBAR USER TITLE
             = form_for @user, url: user_update_avatar_path(@user), method: :post  do |f|
