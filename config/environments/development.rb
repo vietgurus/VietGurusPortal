@@ -14,10 +14,10 @@ Rails.application.configure do
   ENV['WNI_API_PASSWORD']    = ''
 
   # Google Calendar API
-  ENV['GCAL_CLIENT_ID'] = '96835738130-pnjvdcu8jb4teh62ge5bfp4mhe6cq10a.apps.googleusercontent.com'
-  ENV['GCAL_CLIENT_SECRET'] = 'lokVi_ZSMi-kWhBqVElxRwXq'
-  ENV['GCAL_CALENDAR_ID'] = 'vq6tkrsdc39fae7u4r7a1oo710@group.calendar.google.com'
-  ENV['GCAL_CALLBACK_URL'] = 'https://localhost:3000/oauth2callback'
+  ENV['GCAL_CLIENT_ID'] = ''
+  ENV['GCAL_CLIENT_SECRET'] = ''
+  ENV['GCAL_CALENDAR_ID'] = ''
+  ENV['GCAL_CALLBACK_URL'] = ''
 
   # Imgur
   ENV['IMGUR_ID']       = 'd17be6dd29b4f8d'
