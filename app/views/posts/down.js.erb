@@ -2,7 +2,7 @@ $panel = $('.panel[data-id="<%= @post.id %>"]')
 <% if @ajax_message[:success].present? %>
   $panel.find('.btn.red span').text("<%= @post.down.split(',').count() %>")
 
-  $user_div = $('<div class="user" style="background: url(/images/avatars/' + <%= current_user.id %> + '.jpg)"></div>')
+  $user_div = $('<div class="user" style="background: url(' + <%= current_user.get_avatar_path %> + ')"></div>')
   $user_div.css({opacity:0});
   $panel.find('.panel-body .result.red').append($user_div.animate({opacity:1}, 'slow'))
 

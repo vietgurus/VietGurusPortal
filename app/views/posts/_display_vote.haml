@@ -21,11 +21,11 @@
           %i.glyphicon.glyphicon-thumbs-up.up
           - if post.vote_result_array[:up].present?
             - post.vote_result_array[:up].each do |id|
-              %div.user{style: "background: url(/images/avatars/" + id.to_s + ".jpg)"}
+              %div.user{style: "background: url(" + User.get_avatar_path_by_id(id) + ")"}
         %div.result.red
           %i.glyphicon.glyphicon-thumbs-down.down
           - if post.vote_result_array[:down].present?
             - post.vote_result_array[:down].each do |id|
-              %div.user{style: "background: url(/images/avatars/" + id.to_s + ".jpg)"}
+              %div.user{style: "background: url(" + User.get_avatar_path_by_id(id) + ")"}
         %div.content
           = simple_format post.content

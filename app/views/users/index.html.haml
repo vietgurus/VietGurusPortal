@@ -46,11 +46,7 @@
                       %div.text-center.col-md-1
                         #{user.id}
                       %div.text-center.col-md-2
-                        - unless user.image_url.nil? || user.image_url.blank?
-                          - src = user.image_url
-                        - else
-                          - src = "/images/team_logo.png"
-                        = image_tag src, class: "img-responsive", alt: "", style: "width: 100px; margin: 0 auto;"
+                        = image_tag user.get_avatar_path, class: "img-responsive", alt: "", style: "width: 100px; margin: 0 auto;"
                       %div.text-center.col-md-2
                         #{user.name}
                       %div.text-center.col-md-2
