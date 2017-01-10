@@ -14,7 +14,7 @@
               .pull-right
                 = link_to "New User", new_user_path, class: "btn btn-primary pull-right"
           .portlet-body.form.form-horizontal.form-bordered.form-label-stripped
-            .tab-content.form-bordered
+            .tab-content
               - if flash[:error].present?
                 .alert.alert-danger.display-show
                   %button.close{"data-close" => "alert"}
@@ -25,45 +25,43 @@
                   %button.close{"data-close" => "alert"}
                   %span
                     = flash[:notice]
+
               .form-body
-                %div.form-group.col-md-12.hidden-xs.hidden-sm
-                  %div.text-center.col-md-1
-                    %b ID
-                  %div.text-center.col-md-2
-                    %b Avatar
-                  %div.text-center.col-md-2
-                    %b Name
-                  %div.text-center.col-md-2
-                    %b Email
-                  %div.text-center.col-md-2
-                    %b Role
-                  %div.text-center.col-md-2
-                    %b Edit
-                  %div.text-center.col-md-1
-                    %b Delete
-                - @users.each do |user|
-                  %div.form-group.col-md-12
+                %div.form-group.col-md-12
+                  %div.row.row-bordered.col-md-12.hidden-xs.hidden-sm
                     %div.text-center.col-md-1
-                      #{user.id}
+                      %b ID
                     %div.text-center.col-md-2
-                      -#- image = Image.find_by(id: user.image_id)
-                      - unless user.image_url.nil?
-                        - src = user.image_url
-                      - else
-                        - src = "/images/team_logo.png"
-                      = image_tag src, class: "img-responsive", alt: "", style: "width: 100px; margin: 0 auto;"
+                      %b Avatar
                     %div.text-center.col-md-2
-                      #{user.name}
+                      %b Name
                     %div.text-center.col-md-2
-                      #{user.email}
+                      %b Email
                     %div.text-center.col-md-2
-                      - if user != current_user
-                        = form_for(user, url: {:action => 'update_role', :id => user.id}, method: 'post') do |f|
-                          =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]},{}, {class: 'form-control select2_category', style: 'margin-bottom: 10px'})
-                          =f.submit 'Change Role', :class => 'btn green'
-                      - else
-                        #{user.role}
-                    .text-cent.col-md-2
-                      = link_to "Edit User", edit_user_path(user), class: "btn green"
-                    %div.text-center.col-md-1
-                      = link_to('Delete user', user_path(user), :data => {:confirm => 'Hey gurus ! Are you sure ?'}, :method => :delete, :class => 'btn btn-danger') unless user == current_user
+                      %b Role
+                    %div.text-center.col-md-3
+                      %b Action
+                  - @users.each do |user|
+                    %div.row.row-bordered.col-md-12
+                      %div.text-center.col-md-1
+                        #{user.id}
+                      %div.text-center.col-md-2
+                        - unless user.image_url.nil? || user.image_url.blank?
+                          - src = user.image_url
+                        - else
+                          - src = "/images/team_logo.png"
+                        = image_tag src, class: "img-responsive", alt: "", style: "width: 100px; margin: 0 auto;"
+                      %div.text-center.col-md-2
+                        #{user.name}
+                      %div.text-center.col-md-2
+                        #{user.email}
+                      %div.text-center.col-md-2
+                        - if user == current_user
+                          #{user.role}
+                        - else
+                          = form_for(user, url: {:action => 'update_role', :id => user.id}, method: 'post') do |f|
+                            =f.select(:role, User.roles.keys.map {|role| [role.titleize, role]},{}, {class: 'form-control select2_category', style: 'margin-bottom: 10px'})
+                            =f.submit 'Change Role', :class => 'btn btn-sm green', :style => 'margin: 5px 0'
+                      %div.text-center.col-md-3
+                        = link_to "Edit User", edit_user_path(user), class: "btn btn-sm green", style: 'margin-bottom: 5px'
+                        = link_to('Delete user', user_path(user), :data => {:confirm => 'Hey gurus ! Are you sure ?'}, :method => :delete, :class => 'btn btn-sm btn-danger', style: 'margin-bottom: 5px') unless user == current_user

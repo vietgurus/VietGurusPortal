@@ -14,8 +14,8 @@ development:
   encoding: unicode
   pool: 25
   database: vgPortal
-  username: apdev
-  password: apdev123
+  username: admin
+  password: admin
   host: localhost
   template: template0
 

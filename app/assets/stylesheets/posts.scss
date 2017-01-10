@@ -92,3 +92,15 @@ div.post {
   height: 35px;
   border-radius: 100%;
 }
+
+.row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  margin: 0 15px;
+  padding-bottom: 10px;
+}
+
+.row-bordered:before {
+  padding-top: 10px;
+}
