@@ -21,7 +21,7 @@
                     = "#{post.cat_name}" + (children ? " (#{children.count+1})" : "")
                   %div.control
                     - if post.authorized? current_user.id
-                      - if post.creator_id.to_s == current_user.id
+                      - if post.creator_id.to_s == current_user.id.to_s
                         %a{href: edit_post_path(post)}
                           Edit
                         |
