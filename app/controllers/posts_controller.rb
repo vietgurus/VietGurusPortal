@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_ajax, only: [:up, :down, :update_result]
+  before_action :check_creator_before_edit, only: [:edit, :update, :destroy]
 
   def index
     type = params[:type]
@@ -172,4 +173,14 @@ class PostsController < ApplicationController
           'Your posts'
       end
     end
+
+    def check_creator_before_edit
+      creator_id = @post.creator_id
+      current_user_id = current_user.id
+
+      if creator_id.to_s != current_user_id.to_s
+        redirect_to posts_path
+      end
+    end
+
 end
