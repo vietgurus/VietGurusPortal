@@ -2,6 +2,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_ajax, only: [:up, :down, :update_result]
 
+
+  def test_method
+
+  end
+
   def index
     type = params[:type]
     if type.present?
