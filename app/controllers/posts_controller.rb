@@ -174,11 +174,13 @@ class PostsController < ApplicationController
       end
     end
 
-    def check_creator_before_edit 
-      creator_id = @post.creator_id  
-      current_user_id = current_user.id  
+    def check_creator_before_edit
+      creator_id = @post.creator_id
+      current_user_id = current_user.id
+
       if creator_id.to_s != current_user_id.to_s
         redirect_to posts_path
       end
     end
+
 end
